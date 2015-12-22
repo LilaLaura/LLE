@@ -8,14 +8,28 @@ import java.util.Scanner;
 
 public class LLE {
 	ArrayList<DataPoint> data;
-	ArrayList<DataPoint> neighbors;
+	Double[][] distances;
 	
 	public LLE(ArrayList<DataPoint> data) {
 		super();
 		this.data = data;
 	}
 
-
+	public Double[][] calcDistanceMatrics(){
+		Double[][] result = new Double[data.size()][data.size()];
+		for(int i=0; i<data.size()-1; i++){
+			for(int j=0; j<data.size()-1; j++){
+				if(j!=i){
+					result[i][j]=calcDistance(data.get(i),data.get(j));
+				}
+				else{
+					result[i][j]=0.0;
+				}
+			}
+			
+		}
+		return result;
+	}
 	public void findNeighbours(){
 		
 	}
