@@ -3,6 +3,7 @@ package lle;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class MyParser {
@@ -60,13 +61,17 @@ public class MyParser {
     	//specify the delimiter that is used within a row
     	//TODO make this dynamic
     	scanner.useDelimiter(";");
-         
+    	System.out.println("new row: ");
         while (scanner.hasNext()) { 
         	//add each field of the row to the result list
-            Double oneField = scanner.nextDouble();
-            result.add(oneField);
-            System.out.print("Parsed Field: ");
-            System.out.println(oneField);
+        	Double oneField = 0.0;
+        	if(scanner.hasNextDouble()){
+        		oneField = scanner.nextDouble();
+        	}
+        	
+            System.out.println("double value: " + oneField);
+        	result.add(oneField);
+        	
         } 
         scanner.close(); 
 		return result;
