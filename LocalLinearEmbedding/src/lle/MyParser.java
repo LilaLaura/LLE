@@ -65,10 +65,14 @@ public class MyParser {
         while (scanner.hasNext()) { 
         	//add each field of the row to the result list
         	Double oneField = 0.0;
-        	if(scanner.hasNextDouble()){
-        		oneField = scanner.nextDouble();
+        	String oneField2 = scanner.next();
+        	try{
+        		oneField=Double.parseDouble(oneField2);
         	}
-        	
+    		catch(Exception e){
+    			oneField=0.0;
+    		}
+    		
             System.out.println("double value: " + oneField);
         	result.add(oneField);
         	
