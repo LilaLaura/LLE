@@ -17,4 +17,8 @@ public class DataPoint {
 	public Double getDimensionN(int n){
 		return this.dimensions.get(n);
 	}
+	
+	public int getNumberOfDimensions(){
+		return this.dimensions.size();
+	}
 }
