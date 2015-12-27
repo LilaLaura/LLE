@@ -6,19 +6,48 @@ import java.util.ArrayList;
 public class LLE {
 	ArrayList<DataPoint> data;
 	Double[][] distances;
+	ArrayList<ExtDataPoint> dataWithNeighbors;
 	
-	/* constructor
-	 * stores a list of DataPoint
-	 * create and stores distance matrix
+	/* constructor 
+	 * 
+	 * @param k number of expected neighbors
 	 */
-	public LLE(ArrayList<DataPoint> data) {
+	public LLE(ArrayList<DataPoint> data, int k) {
 		super();
 		//ensure input data is not null, this would raise a nullPointerException
 		if( data != null)
 		{
+			//remember initial list of DataPoints
 			this.data = data;
+			//calculate and remember distances between all DataPoints
 			this.distances = this.calcDistanceMatrix(data);
+			//calculate and remember the neighbors of all DataPoints
+			this.dataWithNeighbors = this.findAllNeighbors(k, data, distances);
 		}
+	}
+	
+	/*
+	 * find all neighbors for all DataPoints
+	 * @param k number of expected neighbors
+	 */
+	public ArrayList<ExtDataPoint> findAllNeighbors(int k, ArrayList<DataPoint> data, Double[][] distances){
+		ArrayList<ExtDataPoint> result = new ArrayList<ExtDataPoint>();
+		
+		return result;
+		
+	}
+	
+	/*
+	 * find all neighbors for a single DataPoint
+	 * @param k number of expected neighbors
+	 * @param i index of the "home"-DataPoint
+	 * @param distances distance matrix for neighbor calculation
+	 */
+	public Integer findNeighbours(int k, int i, Double[][] distances){
+		Integer result = null;
+		
+		
+		return result;
 	}
 
 	/*
@@ -41,9 +70,7 @@ public class LLE {
 		}
 		return result;
 	}
-	public void findNeighbours(){
-		
-	}
+	
 	public Double calcDistance(DataPoint x,DataPoint y){
 		Double result=0.0;
 		Double sum=0.0;
