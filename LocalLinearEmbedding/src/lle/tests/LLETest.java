@@ -70,6 +70,7 @@ public class LLETest {
 		//assert dist[1][2] == 1.0;
 		//assert dist[2][0] == 3.0;
 		//assert dist[2][1] == 0.0;
+	
 		
 	}
 	
