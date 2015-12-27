@@ -1,21 +1,32 @@
 package lle;
 
-import java.io.File; 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Scanner; 
 
 
 public class LLE {
 	ArrayList<DataPoint> data;
 	Double[][] distances;
 	
+	/* constructor
+	 * stores a list of DataPoint
+	 * create and stores distance matrix
+	 */
 	public LLE(ArrayList<DataPoint> data) {
 		super();
-		this.data = data;
+		//ensure input data is not null, this would raise a nullPointerException
+		if( data != null)
+		{
+			this.data = data;
+			this.distances = this.calcDistanceMatrix(data);
+		}
 	}
 
-	public Double[][] calcDistanceMatrics(){
+	/*
+	 * calculates the distance matrix for a given set of DataPoint
+	 * TODO optimize! Distance matrices are symmetric therefore calculating
+	 * distances twice could be avoided
+	 */
+	public Double[][] calcDistanceMatrix( ArrayList<DataPoint> data ){
 		Double[][] result = new Double[data.size()][data.size()];
 		for(int i=0; i<data.size()-1; i++){
 			for(int j=0; j<data.size()-1; j++){

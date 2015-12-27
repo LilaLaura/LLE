@@ -57,9 +57,9 @@ public class LLETest {
 		g.add(x);
 		g.add(y);
 		//g.add(z);
-		LLE MyLLE = new LLE (g);
+		LLE MyLLE = new LLE (null);
 //		when
-		Double[][] dist = MyLLE.calcDistanceMatrics();
+		Double[][] dist = MyLLE.calcDistanceMatrix( g );
 		//then
 		assert dist[0][0] == 0.0;
 		assert dist[1][1] == 0.0;
