@@ -15,7 +15,7 @@ public class LLE {
 	public LLE(ArrayList<DataPoint> data, int k) {
 		super();
 		//ensure input data is not null, this would raise a nullPointerException
-		if( data != null)
+		if( data != null && k != 0)
 		{
 			//remember initial list of DataPoints
 			this.data = data;

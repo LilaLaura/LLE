@@ -26,7 +26,7 @@ public class LLETest {
 		b.add(3.0);
 		b.add(6.0);
 		DataPoint y= new DataPoint(b);
-		LLE MyLLE = new LLE (null);
+		LLE MyLLE = new LLE (null, 0);
 		//when
 		Double output= MyLLE.calcDistance(x, y);
 		//then
@@ -57,7 +57,7 @@ public class LLETest {
 		g.add(x);
 		g.add(y);
 		//g.add(z);
-		LLE MyLLE = new LLE (null);
+		LLE MyLLE = new LLE (null, 0);
 //		when
 		Double[][] dist = MyLLE.calcDistanceMatrix( g );
 		//then

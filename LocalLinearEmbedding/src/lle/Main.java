@@ -15,7 +15,7 @@ public class Main {
 		ArrayList<DataPoint> myDataPoints = parser.parseFile2DataPoints();
 
 		//Initialize LLE class which will do the computing
-		LLE myLLE = new LLE(myDataPoints);
+		LLE myLLE = new LLE(myDataPoints, 0);
 		
 		//TODO tell myLLE to do some fancy calculating
 		
