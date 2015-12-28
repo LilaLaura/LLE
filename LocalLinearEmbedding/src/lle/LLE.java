@@ -32,7 +32,14 @@ public class LLE {
 	 */
 	public ArrayList<ExtDataPoint> findAllNeighbors(int k, ArrayList<DataPoint> data, Double[][] distances){
 		ArrayList<ExtDataPoint> result = new ArrayList<ExtDataPoint>();
-		
+		for(int i=0; i<data.size(); i++){
+			ArrayList<Integer> neighbors=this.findNeighbours(k,i, distances);
+			ExtDataPoint temp= new ExtDataPoint(data.get(i).getAllDimensions(),k);
+			for(int j=0; j<neighbors.size(); j++){
+				temp.addNeighbor(data.get(neighbors.get(j)));
+			}
+			result.add(temp);
+		}
 		return result;
 		
 	}
@@ -43,13 +50,36 @@ public class LLE {
 	 * @param i index of the "home"-DataPoint
 	 * @param distances distance matrix for neighbor calculation
 	 */
-	public Integer findNeighbours(int k, int i, Double[][] distances){
-		Integer result = null;
-		
-		
+	public ArrayList<Integer> findNeighbours(int k, int i, Double[][] distances){
+		ArrayList<Integer> result = null;
+		Integer[] sortedList = this.BubbleSort(distances[i]);
+		for (int j = 1; j < k + 1; j++) {
+			result.add(sortedList[j]);
+		}
 		return result;
 	}
-
+		public Integer[] BubbleSort(Double[] b){
+			Double temp;
+			Integer temp2;
+			Integer[] index = new Integer[b.length];
+			for(int p=0; p<b.length; p++){
+				index[p]=p;
+			}
+			for(int i=1; i<b.length; i++) {
+				for(int j=0; j<b.length-i; j++) {
+					if(b[j]>b[j+1]) {
+						temp=b[j];
+						b[j]=b[j+1];
+						b[j+1]=temp;
+						temp2=index[j];
+						index[j]=index[j+1];
+						index[j+1]=temp2;
+					}
+					
+				}
+			}
+			return index; 
+		}
 	/*
 	 * calculates the distance matrix for a given set of DataPoint
 	 * TODO optimize! Distance matrices are symmetric therefore calculating
@@ -57,8 +87,9 @@ public class LLE {
 	 */
 	public Double[][] calcDistanceMatrix( ArrayList<DataPoint> data ){
 		Double[][] result = new Double[data.size()][data.size()];
+		System.out.println(data.size());
 		for(int i=0; i<data.size()-1; i++){
-			for(int j=0; j<data.size()-1; j++){
+			for(int j=0; j<data.get(j).getNumberOfDimensions()-1; j++){
 				if(j!=i){
 					result[i][j]=calcDistance(data.get(i),data.get(j));
 				}
@@ -66,7 +97,6 @@ public class LLE {
 					result[i][j]=0.0;
 				}
 			}
-			
 		}
 		return result;
 	}

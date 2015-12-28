@@ -14,12 +14,15 @@ public class ExtDataPoint extends DataPoint {
 	
 	//two ways to represent neighbors, we will see which is more useful later
 	//TODO clean up before release
-//	ArrayList<DataPoint> neighbors;
-	ArrayList<Integer> neighborsIndex;
+	//ArrayList<DataPoint> neighbors;
+	//ArrayList<Integer> neighborsIndex;
+	public Double[][] neighborMatrix;
+	Integer counter;
 	
-	
-	public ExtDataPoint(ArrayList<Double> dimensions) {
+	public ExtDataPoint(ArrayList<Double> dimensions,Integer k) {
 		super(dimensions);
+		neighborMatrix= new Double[k][dimensions.size()];
+		counter=0;
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -33,8 +36,11 @@ public class ExtDataPoint extends DataPoint {
 	/*
 	 * 
 	 */
-	public void addNeighbor(Integer neighborIndex){
-		this.neighborsIndex.add(neighborIndex);
+	public void addNeighbor(DataPoint neighbor){
+		for(int i=0; i<neighbor.getNumberOfDimensions(); i++){
+			neighborMatrix[counter][i]=neighbor.getDimensionN(i);
+		}
+		counter++;
 	}
 
 }
