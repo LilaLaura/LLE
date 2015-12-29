@@ -18,7 +18,8 @@ public class ExtDataPoint extends DataPoint {
 	//ArrayList<Integer> neighborsIndex;
 	public Double[][] neighborMatrix;
 	Integer counter;
-	
+	public Double[][]subtractedNeighborMatrix;
+
 	public ExtDataPoint(ArrayList<Double> dimensions,Integer k) {
 		super(dimensions);
 		neighborMatrix= new Double[k][dimensions.size()];
@@ -42,5 +43,20 @@ public class ExtDataPoint extends DataPoint {
 		}
 		counter++;
 	}
+	
+	public Double[][] matrixSubtraction(ArrayList<Double> dimensions, Double[][] neighbor){
+		Double[][] result = neighbor;
+		for(int i=0; i< neighbor.length; i++){
+			for(int j=0; j<neighbor[0].length; j++){
+				result[i][j]=neighbor[i][j]-dimensions.get(j);
+			}
+		}
+		return result;
+	}
+	
+	public void doSubtraction(){
+		this.subtractedNeighborMatrix=this.matrixSubtraction(super.getAllDimensions(), this.neighborMatrix);
+	}
+	
 
 }
