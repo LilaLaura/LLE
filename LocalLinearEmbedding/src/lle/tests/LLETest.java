@@ -1,6 +1,6 @@
 package lle.tests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -31,7 +31,8 @@ public class LLETest {
 		//when
 		Double output= MyLLE.calcDistance(x, y);
 		//then
-				assert output == 2.0;
+		Double expectedA = 2.449489742783178;
+		assertEquals(expectedA,output);		
 				
 				
 	}
@@ -62,17 +63,18 @@ public class LLETest {
 		//when
 		Double[][] dist = MyLLE.calcDistanceMatrix( g );
 		//then
-		assert dist[0][0] == 0.0;
-		assert dist[1][1] == 0.0;
-		assert dist[2][2] == 0.0;
-		assert dist[0][1] == 1.0;
-		assert dist[0][2] == 9.0;
-		assert dist[1][0] == 9.0;
-		assert dist[1][2] == 18.0;
-		assert dist[2][0] == 9.0;
-		assert dist[2][1] == 18.0;
-	
-		
+		Double expectedA = 0.0;
+		assertEquals(dist[0][0], expectedA);
+		assertEquals(dist[1][1], expectedA);
+		assertEquals(dist[2][2], expectedA);
+		Double expectedB = 9.0;
+		assertEquals(dist[0][1], expectedB);
+		assertEquals(dist[1][0], expectedB);
+		assertEquals(dist[2][0], expectedB);
+		assertEquals(dist[0][2], expectedB);
+		Double expectedC = 18.0;
+		assertEquals(dist[1][2], expectedC);
+		assertEquals(dist[2][1], expectedC);
 	}
 	
 	@Test
@@ -87,9 +89,12 @@ public class LLETest {
 	//when
 		b.addNeighbor(c);
 	//then
-		assert b.neighborMatrix[0][0]==1.0;
-		assert b.neighborMatrix[0][1]==2.0;
-		assert b.neighborMatrix[0][2]==3.0;
+		Double expectedA = 1.0;
+		assertEquals(b.neighborMatrix[0][0], expectedA);
+		Double expectedB = 2.0;
+		assertEquals(b.neighborMatrix[0][1], expectedB);
+		Double expectedC = 3.0;
+		assertEquals(b.neighborMatrix[0][2], expectedC);
 	}
 	
 	@Test
@@ -105,13 +110,39 @@ public class LLETest {
 	//when
 		Integer[] c= a.BubbleSort(b);
 	//then
-		assert c[0]==0;
-		assert c[1]==3;
-		assert c[2]==2;
-		assert c[3]==4;
-		assert c[4]==2;
-		
-		
-		
+		Integer expectedA = 0;
+		assertEquals(c[0], expectedA);
+		Integer expectedB = 3;
+		assertEquals(c[1], expectedB);
+		Integer expectedC = 2;
+		assertEquals(c[2], expectedC);
+		Integer expectedD = 4;
+		assertEquals(c[3], expectedD);
+		Integer expectedE = 1;
+		assertEquals(c[4], expectedE);
+	}
+	
+	@Test
+	public void TestFindAllNeighbor(){
+	//given
+		ArrayList<Double> za =new ArrayList<Double>();
+		za.add(1.0);
+		za.add(2.0);
+		za.add(3.0);
+		DataPoint ad= new DataPoint(za);
+		ArrayList<Double> zb =new ArrayList<Double>();
+		zb.add(1.0);
+		zb.add(1.0);
+		zb.add(1.0);
+		DataPoint bd= new DataPoint(zb);
+		ArrayList<DataPoint> zc =new ArrayList<DataPoint>();
+		zc.add(ad);
+		zc.add(bd);
+		LLE d= new LLE(null,0);
+		Double[][] e= d.calcDistanceMatrix(zc);
+	//when
+		ArrayList<ExtDataPoint> f= d.findAllNeighbors(1, zc, e);
+	//then
+		assertEquals(2,f.size());
 	}
 }
