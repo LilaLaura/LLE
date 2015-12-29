@@ -25,8 +25,15 @@ public class LLE {
 			this.dataWithNeighbors = this.findAllNeighbors(k, data, distances);
 		}
 	}
+	public ArrayList<ExtDataPoint> subractAllRows(ArrayList<ExtDataPoint> data){
+		ArrayList<ExtDataPoint> result = new ArrayList<ExtDataPoint>();
+		for(int i=0; i<data.size(); i++){
+			
+		}
+		return result;
+	}
 	
-	/*
+		/*
 	 * find all neighbors for all DataPoints
 	 * @param k number of expected neighbors
 	 */
@@ -88,9 +95,13 @@ public class LLE {
 	public Double[][] calcDistanceMatrix( ArrayList<DataPoint> data ){
 		Double[][] result = new Double[data.size()][data.size()];
 		System.out.println(data.size());
-		for(int i=0; i<data.size()-1; i++){
-			for(int j=0; j<data.get(j).getNumberOfDimensions()-1; j++){
+		for(int i=0; i<=data.size()-1; i++){
+			System.out.println("i=: "+i);
+			System.out.println("k=: "+data.get(i).getNumberOfDimensions());
+			for(int j=0; j<=data.get(i).getNumberOfDimensions()-1; j++){
+				System.out.println("j=: "+j);
 				if(j!=i){
+					System.out.println("distance=: "+calcDistance(data.get(i),data.get(j-1)));
 					result[i][j]=calcDistance(data.get(i),data.get(j));
 				}
 				else{
