@@ -25,6 +25,7 @@ public class ExtDataPoint extends DataPoint {
 	public double[][]covarianceNeighborMatrix;
 	public double[]linearVector;
 	public double[][]weightMatrix;
+	public double[][]sparseMatrix;
 
 	public ExtDataPoint(double[] dimensions,Integer k) {
 		super(dimensions);
@@ -77,7 +78,7 @@ public class ExtDataPoint extends DataPoint {
 	public double[][] calcCovariance(double[][] subtractedNeighborMatrix){
 		Matrix A = new Matrix(subtractedNeighborMatrix);
 		Matrix transpose = A.transpose();
-		Matrix C= A.times(transpose);
+		Matrix C= transpose.times(A);
 		return C.getArray();
 	}
 	
@@ -100,5 +101,18 @@ public class ExtDataPoint extends DataPoint {
 		this.linearVector=this.solveLinearSystem(this.covarianceNeighborMatrix);
 	}
 
-
+	public double[][] calcSparseMatrix(double[][] weightMatrix){
+		Matrix I= Matrix.identity(weightMatrix.length,weightMatrix[0].length);
+		Matrix W=new Matrix(weightMatrix);
+		Matrix subtract=I.minus(W);
+		Matrix transpose = subtract.transpose();
+		Matrix M= transpose.times(subtract);
+		return M.getArray();
+	}
+	
+	public void createSparseMatrix(){
+		this.sparseMatrix=this.calcSparseMatrix(this.weightMatrix);
+	}
+	
+	public
 }

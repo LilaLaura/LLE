@@ -26,6 +26,12 @@ public class LLE {
 		}
 	}
 	
+	public void createAllSparseMatrix(ArrayList<ExtDataPoint> data){
+		for(int i=0; i<=data.size()-1; i++){
+			data.get(i).createSparseMatrix();
+		}
+	}
+	
 	public void costructAllWeightMatrix(ArrayList<ExtDataPoint> data){
 		for(int i=0; i<=data.size()-1; i++){
 			double[][] weightMatrix=this.constructWeightMatrix(data, i);
