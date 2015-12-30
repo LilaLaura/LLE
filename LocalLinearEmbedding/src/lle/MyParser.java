@@ -34,7 +34,7 @@ public class MyParser {
                 	continue;
                 }
                 //parse the actual row
-                ArrayList<double> parsedRow = this.parseSingleRow(oneRow);
+                double[] parsedRow = this.parseSingleRow(oneRow);
                 //create a DataPoint based on the parsed row
                 DataPoint newDataPoint = new DataPoint(parsedRow);
                 //add new DataPoint to result list
@@ -50,32 +50,39 @@ public class MyParser {
 	/*
 	 * parse a single row to a list of double's
 	 */
-	public ArrayList<double> parseSingleRow(String aRow){
-		//initialize result list
-		double[] result = new double[];
+	public double[] parseSingleRow(String aRow){
 		
-		Scanner scanner; 
+		//get the number of columns 
+		int i = 0;
+		Scanner scanner1 = new Scanner(aRow);
+		while (scanner1.hasNext()) {
+			i++;
+		}
+		scanner1.close();
+		
+		//initialize result list		
+		double[] result = new double[i];
         
     	//process the file row by row using the Scanner class
-    	scanner = new Scanner(aRow);
+		Scanner scanner = new Scanner(aRow);
     	//specify the delimiter that is used within a row
     	//TODO make this dynamic
     	scanner.useDelimiter(";");
-    	System.out.println("new row: ");
+    	int j=0;
         while (scanner.hasNext()) { 
         	//add each field of the row to the result list
         	double oneField = 0.0;
         	String oneField2 = scanner.next();
         	try{
-        		oneField=double.parsedouble(oneField2);
+        		oneField=Double.parseDouble(oneField2);
         	}
     		catch(Exception e){
     			oneField=0.0;
     		}
     		
             System.out.println("double value: " + oneField);
-        	result.add(oneField);
-        	
+        	result[j] = oneField;
+        	j++;
         } 
         scanner.close(); 
 		return result;

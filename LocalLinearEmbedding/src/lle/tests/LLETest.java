@@ -1,16 +1,15 @@
 package lle.tests;
 
-import static org.junit.Assert.assertEquals;
 
-import java.io.File;
+
 import java.util.ArrayList;
 
 import lle.DataPoint;
 import lle.ExtDataPoint;
 import lle.LLE;
-import lle.MyParser;
 
 import org.junit.Test;
+import static org.junit.Assert.*;
 
 public class LLETest {
 
@@ -26,7 +25,7 @@ public class LLETest {
 		double output= MyLLE.calcDistance(x, y);
 		//then
 		double expectedA = 2.449489742783178;
-		assertEquals(expectedA,output);		
+		assertEquals(expectedA,output , 0.00000001);		
 				
 				
 	}
@@ -48,18 +47,15 @@ public class LLETest {
 		//when
 		double[][] dist = MyLLE.calcDistanceMatrix( g );
 		//then
-		double expectedA = 0.0;
-		assertEquals(dist[0][0], expectedA);
-		assertEquals(dist[1][1], expectedA);
-		assertEquals(dist[2][2], expectedA);
-		double expectedB = 9.0;
-		assertEquals(dist[0][1], expectedB);
-		assertEquals(dist[1][0], expectedB);
-		assertEquals(dist[2][0], expectedB);
-		assertEquals(dist[0][2], expectedB);
-		double expectedC = 18.0;
-		assertEquals(dist[1][2], expectedC);
-		assertEquals(dist[2][1], expectedC);
+		assertEquals(0.0, dist[0][0], 0.00000001);
+		assertEquals(0.0, dist[1][1], 0.00000001);
+		assertEquals(0.0, dist[2][2], 0.00000001);
+		assertEquals(9.0, dist[0][1], 0.00000001);
+		assertEquals(9.0, dist[1][0], 0.00000001);
+		assertEquals(9.0, dist[2][0], 0.00000001);
+		assertEquals(9.0, dist[0][2], 0.00000001);
+		assertEquals(18.0, dist[1][2], 0.00000001);
+		assertEquals(18.0, dist[2][1], 0.00000001);
 	}
 	
 	@Test
@@ -74,12 +70,9 @@ public class LLETest {
 	//when
 		b.addNeighbor(c);
 	//then
-		double expectedA = 1.0;
-		assertEquals(b.neighborMatrix[0][0], expectedA);
-		double expectedB = 2.0;
-		assertEquals(b.neighborMatrix[0][1], expectedB);
-		double expectedC = 3.0;
-		assertEquals(b.neighborMatrix[0][2], expectedC);
+		assertEquals(1.0, b.neighborMatrix[0][0], 0.00000001);
+		assertEquals(2.0, b.neighborMatrix[0][1], 0.00000001);
+		assertEquals(3.0, b.neighborMatrix[0][2], 0.00000001);
 	}
 	
 	@Test
