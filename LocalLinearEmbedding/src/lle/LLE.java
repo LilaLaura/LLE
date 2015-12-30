@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class LLE {
 	ArrayList<DataPoint> data;
-	Double[][] distances;
+	double[][] distances;
 	ArrayList<ExtDataPoint> dataWithNeighbors;
 	
 	/* constructor 
@@ -25,19 +25,54 @@ public class LLE {
 			this.dataWithNeighbors = this.findAllNeighbors(k, data, distances);
 		}
 	}
-	public ArrayList<ExtDataPoint> subractAllRows(ArrayList<ExtDataPoint> data){
-		ArrayList<ExtDataPoint> result = new ArrayList<ExtDataPoint>();
-		for(int i=0; i<data.size(); i++){
+	
+	public void costructAllWeightMatrix(ArrayList<ExtDataPoint> data){
+		for(int i=0; i<=data.size()-1; i++){
+			double[][] weightMatrix=this.constructWeightMatrix(data, i);
+			data.get(i).weightMatrix=weightMatrix;
+		}
+	}
+	
+	public double[][] constructWeightMatrix(ArrayList<ExtDataPoint> data, int i){
+		double[] linearVector= data.get(i).linearVector;
+		double[][] weightMatrix= new double[linearVector.length][data.size()-1];
+		for(int j=0; j<=data.size()-1; j++){
+			for(int h=0; h<=linearVector.length-1; h++){
+				if(data.get(i).isNeighbor(data.get(j))){
+					weightMatrix[h][j]=linearVector[h];
+				}
+				else{
+					weightMatrix[h][j]=0;
+				}
+			}
 			
 		}
-		return result;
+		return weightMatrix; //weightmatrix for datapoint i
+	}
+	
+	public void calcAllLinearSystems(ArrayList<ExtDataPoint> data){
+		for(int i=0; i<=data.size()-1; i++){
+			data.get(i).doSolvingLinearSystem();
+		}
+	}
+	
+	public void calcAllCovariance(ArrayList<ExtDataPoint> data){
+		for(int i=0; i<=data.size()-1; i++){
+			data.get(i).doCovariance();
+		}
+	}
+	
+	public void subractAllRows(ArrayList<ExtDataPoint> data){
+		for(int i=0; i<=data.size()-1; i++){
+			data.get(i).doSubtraction();
+		}
 	}
 	
 		/*
 	 * find all neighbors for all DataPoints
 	 * @param k number of expected neighbors
 	 */
-	public ArrayList<ExtDataPoint> findAllNeighbors(int k, ArrayList<DataPoint> data, Double[][] distances){
+	public ArrayList<ExtDataPoint> findAllNeighbors(int k, ArrayList<DataPoint> data, double[][] distances){
 		ArrayList<ExtDataPoint> result = new ArrayList<ExtDataPoint>();
 		for(int i=0; i<data.size(); i++){
 			ArrayList<Integer> neighbors=this.findNeighbours(k,i, distances);
@@ -57,7 +92,7 @@ public class LLE {
 	 * @param i index of the "home"-DataPoint
 	 * @param distances distance matrix for neighbor calculation
 	 */
-	public ArrayList<Integer> findNeighbours(int k, int i, Double[][] distances){
+	public ArrayList<Integer> findNeighbours(int k, int i, double[][] distances){
 		ArrayList<Integer> result = null;
 		Integer[] sortedList = this.BubbleSort(distances[i]);
 		for (int j = 1; j < k + 1; j++) {
@@ -65,8 +100,8 @@ public class LLE {
 		}
 		return result;
 	}
-		public Integer[] BubbleSort(Double[] b){
-			Double temp;
+		public Integer[] BubbleSort(double[] b){
+			double temp;
 			Integer temp2;
 			Integer[] index = new Integer[b.length];
 			for(int p=0; p<b.length; p++){
@@ -92,8 +127,8 @@ public class LLE {
 	 * TODO optimize! Distance matrices are symmetric therefore calculating
 	 * distances twice could be avoided
 	 */
-	public Double[][] calcDistanceMatrix( ArrayList<DataPoint> data ){
-		Double[][] result = new Double[data.size()][data.size()];
+	public double[][] calcDistanceMatrix( ArrayList<DataPoint> data ){
+		double[][] result = new double[data.size()][data.size()];
 		System.out.println(data.size());
 		for(int i=0; i<=data.size()-1; i++){
 			System.out.println("i=: "+i);
@@ -112,13 +147,13 @@ public class LLE {
 		return result;
 	}
 	
-	public Double calcDistance(DataPoint x,DataPoint y){
-		Double result=0.0;
-		Double sum=0.0;
+	public double calcDistance(DataPoint x,DataPoint y){
+		double result=0.0;
+		double sum=0.0;
 		//TODO check dimension length
 		for(int i=0; i<x.getNumberOfDimensions(); i++){
-			Double diff= x.getDimensionN(i)-y.getDimensionN(i);
-			Double square= diff*diff;
+			double diff= x.getDimensionN(i)-y.getDimensionN(i);
+			double square= diff*diff;
 			sum=sum+square;
 		}
 		result=Math.sqrt(sum);

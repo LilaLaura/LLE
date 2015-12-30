@@ -3,22 +3,22 @@ package lle;
 import java.util.ArrayList;
 
 public class DataPoint {
-	private ArrayList<Double> dimensions;
+	private double[] dimensions;
 	
-	public DataPoint(ArrayList<Double> dimensions) {
+	public DataPoint(double[] dimensions) {
 		super();
 		this.dimensions = dimensions;
 	}
 
-	public ArrayList<Double> getAllDimensions(){
+	public double[] getAllDimensions(){
 		return this.dimensions;
 	}
 	
-	public Double getDimensionN(int n){
-		return this.dimensions.get(n);
+	public double getDimensionN(int n){
+		return this.dimensions[n];
 	}
 	
 	public int getNumberOfDimensions(){
-		return this.dimensions.size();
+		return this.dimensions.length;
 	}
 }

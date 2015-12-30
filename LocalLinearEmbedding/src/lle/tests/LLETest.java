@@ -17,21 +17,15 @@ public class LLETest {
 	@Test
 	public void TestDistance() {
 		//given
-		ArrayList<Double> a= new ArrayList<Double>();
-		a.add(5.0);
-		a.add(4.0);
-		a.add(8.0);
+		double[] a= {5.,4.,8.};
 		DataPoint x= new DataPoint(a);
-		ArrayList<Double> b= new ArrayList<Double>();
-		b.add(4.0);
-		b.add(3.0);
-		b.add(6.0);
+		double[] b= {4.,3.,6.};		
 		DataPoint y= new DataPoint(b);
 		LLE MyLLE = new LLE (null, 0);
 		//when
-		Double output= MyLLE.calcDistance(x, y);
+		double output= MyLLE.calcDistance(x, y);
 		//then
-		Double expectedA = 2.449489742783178;
+		double expectedA = 2.449489742783178;
 		assertEquals(expectedA,output);		
 				
 				
@@ -40,20 +34,11 @@ public class LLETest {
 	@Test
 	public void TestDistanceMatrics(){
 		//given
-		ArrayList<Double> a= new ArrayList<Double>();
-		a.add(0.0);
-		a.add(0.0);
-		a.add(0.0);
+		double[] a= {0.0,0.0,0.0};
 		DataPoint x= new DataPoint(a);
-		ArrayList<Double> b= new ArrayList<Double>();
-		b.add(-8.0);
-		b.add(-4.0);
-		b.add(-1.0);
+		double[] b= {-8.0,-4.0,-1.0};
 		DataPoint y= new DataPoint(b);
-		ArrayList<Double> c= new ArrayList<Double>();
-		c.add(8.0);
-		c.add(4.0);
-		c.add(1.0);
+		double[] c = {8.,4.,1.};
 		DataPoint z= new DataPoint(c);
 		ArrayList<DataPoint>g= new ArrayList<DataPoint>();
 		g.add(x);
@@ -61,18 +46,18 @@ public class LLETest {
 		g.add(z);
 		LLE MyLLE = new LLE (null, 0);
 		//when
-		Double[][] dist = MyLLE.calcDistanceMatrix( g );
+		double[][] dist = MyLLE.calcDistanceMatrix( g );
 		//then
-		Double expectedA = 0.0;
+		double expectedA = 0.0;
 		assertEquals(dist[0][0], expectedA);
 		assertEquals(dist[1][1], expectedA);
 		assertEquals(dist[2][2], expectedA);
-		Double expectedB = 9.0;
+		double expectedB = 9.0;
 		assertEquals(dist[0][1], expectedB);
 		assertEquals(dist[1][0], expectedB);
 		assertEquals(dist[2][0], expectedB);
 		assertEquals(dist[0][2], expectedB);
-		Double expectedC = 18.0;
+		double expectedC = 18.0;
 		assertEquals(dist[1][2], expectedC);
 		assertEquals(dist[2][1], expectedC);
 	}
@@ -80,20 +65,20 @@ public class LLETest {
 	@Test
 	public void TestAddNeighbor(){
 	//given
-		ArrayList<Double> a =new ArrayList<Double>();
-		a.add(1.0);
-		a.add(2.0);
-		a.add(3.0);
+		double[] a =new double[3];
+		a[0]=1.0;
+		a[1]=2.0;
+		a[2]=3.0;
 		ExtDataPoint b= new ExtDataPoint(a,2);
 		DataPoint c= new DataPoint(a);
 	//when
 		b.addNeighbor(c);
 	//then
-		Double expectedA = 1.0;
+		double expectedA = 1.0;
 		assertEquals(b.neighborMatrix[0][0], expectedA);
-		Double expectedB = 2.0;
+		double expectedB = 2.0;
 		assertEquals(b.neighborMatrix[0][1], expectedB);
-		Double expectedC = 3.0;
+		double expectedC = 3.0;
 		assertEquals(b.neighborMatrix[0][2], expectedC);
 	}
 	
@@ -101,7 +86,7 @@ public class LLETest {
 	public void TestBubbleSort(){
 	//given
 		LLE a= new LLE(null,0);
-		Double[] b= new Double[5];
+		double[] b= new double[5];
 		b[0]=1.0;
 		b[1]=6.0;
 		b[2]=3.0;
@@ -125,21 +110,21 @@ public class LLETest {
 	@Test
 	public void TestFindAllNeighbor(){
 	//given
-		ArrayList<Double> za =new ArrayList<Double>();
-		za.add(1.0);
-		za.add(2.0);
-		za.add(3.0);
+		double[] za =new double[3];
+		za[0]=1.0;
+		za[1]=2.0;
+		za[2]=3.0;
 		DataPoint ad= new DataPoint(za);
-		ArrayList<Double> zb =new ArrayList<Double>();
-		zb.add(1.0);
-		zb.add(1.0);
-		zb.add(1.0);
+		double[] zb =new double[3];
+		zb[0]=1.0;
+		zb[1]=1.0;
+		zb[2]=1.0;
 		DataPoint bd= new DataPoint(zb);
 		ArrayList<DataPoint> zc =new ArrayList<DataPoint>();
 		zc.add(ad);
 		zc.add(bd);
 		LLE d= new LLE(null,0);
-		Double[][] e= d.calcDistanceMatrix(zc);
+		double[][] e= d.calcDistanceMatrix(zc);
 	//when
 		ArrayList<ExtDataPoint> f= d.findAllNeighbors(1, zc, e);
 	//then

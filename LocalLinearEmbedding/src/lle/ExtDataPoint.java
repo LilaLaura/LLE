@@ -4,6 +4,9 @@
 package lle;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+
+import Jama.Matrix;
 
 /**
  * @author 
@@ -16,13 +19,16 @@ public class ExtDataPoint extends DataPoint {
 	//TODO clean up before release
 	//ArrayList<DataPoint> neighbors;
 	//ArrayList<Integer> neighborsIndex;
-	public Double[][] neighborMatrix;
+	public double[][] neighborMatrix;
 	Integer counter;
-	public Double[][]subtractedNeighborMatrix;
+	public double[][]subtractedNeighborMatrix;
+	public double[][]covarianceNeighborMatrix;
+	public double[]linearVector;
+	public double[][]weightMatrix;
 
-	public ExtDataPoint(ArrayList<Double> dimensions,Integer k) {
+	public ExtDataPoint(double[] dimensions,Integer k) {
 		super(dimensions);
-		neighborMatrix= new Double[k][dimensions.size()];
+		neighborMatrix= new double[k][dimensions.length];
 		counter=0;
 		// TODO Auto-generated constructor stub
 	}
@@ -37,6 +43,16 @@ public class ExtDataPoint extends DataPoint {
 	/*
 	 * 
 	 */
+	
+	public boolean isNeighbor(ExtDataPoint neighbor){
+		for(int i=0; i<neighborMatrix.length; i++){
+			if(Arrays.equals(this.neighborMatrix[i],neighbor.getAllDimensions())){
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public void addNeighbor(DataPoint neighbor){
 		for(int i=0; i<neighbor.getNumberOfDimensions(); i++){
 			neighborMatrix[counter][i]=neighbor.getDimensionN(i);
@@ -44,11 +60,11 @@ public class ExtDataPoint extends DataPoint {
 		counter++;
 	}
 	
-	public Double[][] matrixSubtraction(ArrayList<Double> dimensions, Double[][] neighbor){
-		Double[][] result = neighbor;
+	public double[][] matrixSubtraction(double[] dimensions, double[][] neighbor){
+		double[][] result = neighbor;
 		for(int i=0; i< neighbor.length; i++){
 			for(int j=0; j<neighbor[0].length; j++){
-				result[i][j]=neighbor[i][j]-dimensions.get(j);
+				result[i][j]=neighbor[i][j]-dimensions[j];
 			}
 		}
 		return result;
@@ -58,5 +74,31 @@ public class ExtDataPoint extends DataPoint {
 		this.subtractedNeighborMatrix=this.matrixSubtraction(super.getAllDimensions(), this.neighborMatrix);
 	}
 	
+	public double[][] calcCovariance(double[][] subtractedNeighborMatrix){
+		Matrix A = new Matrix(subtractedNeighborMatrix);
+		Matrix transpose = A.transpose();
+		Matrix C= A.times(transpose);
+		return C.getArray();
+	}
+	
+	public void doCovariance(){
+		this.covarianceNeighborMatrix=this.calcCovariance(this.subtractedNeighborMatrix);
+	}
+	
+	public double[] solveLinearSystem(double[][] covarianceNeighborMatrix){
+		double[][] coloumnVector= new double[covarianceNeighborMatrix.length][1];
+		for(int i=0; i<covarianceNeighborMatrix.length; i++){
+			coloumnVector[i][0]=1;
+		}
+		Matrix C= new Matrix(covarianceNeighborMatrix);
+		Matrix ColVec= new Matrix(coloumnVector);
+		Matrix w = C.solve(ColVec);
+		return w.getRowPackedCopy();
+	}
+	
+	public void doSolvingLinearSystem(){
+		this.linearVector=this.solveLinearSystem(this.covarianceNeighborMatrix);
+	}
+
 
 }

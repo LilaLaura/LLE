@@ -17,7 +17,7 @@ public class MyParserTest {
 		String testData = "1.0;2.1;3.2;"; 
 		MyParser testParser = new MyParser(new File(""));
 		//when
-		ArrayList<Double> output = testParser.parseSingleRow(testData);
+		ArrayList<double> output = testParser.parseSingleRow(testData);
 		//then
 		assert output.get(0) == 1.0;
 		assert output.get(1) == 2.1;
@@ -30,7 +30,7 @@ public class MyParserTest {
 		String testData = "NaN; ;3.2;"; 
 		MyParser testParser = new MyParser(new File(""));
 		//when
-		ArrayList<Double> output = testParser.parseSingleRow(testData);
+		ArrayList<double> output = testParser.parseSingleRow(testData);
 		//then
 		assert output.get(0) == 0.0;
 		assert output.get(1) == 0.0;

@@ -34,7 +34,7 @@ public class MyParser {
                 	continue;
                 }
                 //parse the actual row
-                ArrayList<Double> parsedRow = this.parseSingleRow(oneRow);
+                ArrayList<double> parsedRow = this.parseSingleRow(oneRow);
                 //create a DataPoint based on the parsed row
                 DataPoint newDataPoint = new DataPoint(parsedRow);
                 //add new DataPoint to result list
@@ -48,11 +48,11 @@ public class MyParser {
 	}
 	
 	/*
-	 * parse a single row to a list of Double's
+	 * parse a single row to a list of double's
 	 */
-	public ArrayList<Double> parseSingleRow(String aRow){
+	public ArrayList<double> parseSingleRow(String aRow){
 		//initialize result list
-		ArrayList<Double> result = new ArrayList<Double>();
+		double[] result = new double[];
 		
 		Scanner scanner; 
         
@@ -64,10 +64,10 @@ public class MyParser {
     	System.out.println("new row: ");
         while (scanner.hasNext()) { 
         	//add each field of the row to the result list
-        	Double oneField = 0.0;
+        	double oneField = 0.0;
         	String oneField2 = scanner.next();
         	try{
-        		oneField=Double.parseDouble(oneField2);
+        		oneField=double.parsedouble(oneField2);
         	}
     		catch(Exception e){
     			oneField=0.0;
