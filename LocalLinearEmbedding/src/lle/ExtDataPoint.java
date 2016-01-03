@@ -53,18 +53,19 @@ public class ExtDataPoint extends DataPoint {
 		return false;
 	}
 	
+	//Matrix dimension dxk
 	public void addNeighbor(DataPoint neighbor){
 		for(int i=0; i<neighbor.getNumberOfDimensions(); i++){
-			neighborMatrix[counter][i]=neighbor.getDimensionN(i);
+			neighborMatrix[i][counter]=neighbor.getDimensionN(i); 
 		}
 		counter++;
 	}
 	
 	public double[][] matrixSubtraction(double[] dimensions, double[][] neighbor){
 		double[][] result = neighbor;
-		for(int i=0; i< neighbor.length; i++){
-			for(int j=0; j<neighbor[0].length; j++){
-				result[i][j]=neighbor[i][j]-dimensions[j];
+		for(int i=0; i< neighbor[0].length; i++){
+			for(int j=0; j<neighbor.length; j++){
+				result[j][i]=neighbor[j][i]-dimensions[j];
 			}
 		}
 		return result;
@@ -85,6 +86,7 @@ public class ExtDataPoint extends DataPoint {
 		this.covarianceNeighborMatrix=this.calcCovariance(this.subtractedNeighborMatrix);
 	}
 	
+	//Vector dimension kx1
 	public double[] solveLinearSystem(double[][] covarianceNeighborMatrix){
 		double[][] coloumnVector= new double[covarianceNeighborMatrix.length][1];
 		for(int i=0; i<covarianceNeighborMatrix.length; i++){
@@ -93,24 +95,11 @@ public class ExtDataPoint extends DataPoint {
 		Matrix C= new Matrix(covarianceNeighborMatrix);
 		Matrix ColVec= new Matrix(coloumnVector);
 		Matrix w = C.solve(ColVec);
-		return w.getRowPackedCopy();
+		return w.getColumnPackedCopy();
 	}
 	
 	public void doSolvingLinearSystem(){
 		this.linearVector=this.solveLinearSystem(this.covarianceNeighborMatrix);
-	}
-
-	public double[][] calcSparseMatrix(double[][] weightMatrix){
-		Matrix I= Matrix.identity(weightMatrix.length,weightMatrix[0].length);
-		Matrix W=new Matrix(weightMatrix);
-		Matrix subtract=I.minus(W);
-		Matrix transpose = subtract.transpose();
-		Matrix M= transpose.times(subtract);
-		return M.getArray();
-	}
-	
-	public void createSparseMatrix(){
-		this.sparseMatrix=this.calcSparseMatrix(this.weightMatrix);
 	}
 	
 	

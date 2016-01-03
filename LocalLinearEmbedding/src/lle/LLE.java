@@ -2,6 +2,9 @@ package lle;
 
 import java.util.ArrayList;
 
+import Jama.EigenvalueDecomposition;
+import Jama.Matrix;
+
 
 public class LLE {
 	ArrayList<DataPoint> data;
@@ -26,34 +29,58 @@ public class LLE {
 		}
 	}
 	
-	public void createAllSparseMatrix(ArrayList<ExtDataPoint> data){
-		for(int i=0; i<=data.size()-1; i++){
-			data.get(i).createSparseMatrix();
+	public double[][] embeddingMatrix(double[][] sparseMatrix, Integer[] smallestEigenValues){
+		double[][] embeddingMatrix= new double[sparseMatrix.length][smallestEigenValues.length-1];
+		Matrix M= new Matrix(sparseMatrix);
+		EigenvalueDecomposition x= new EigenvalueDecomposition(M);
+		Matrix V=x.getV();
+		double[][] vArray=V.getArray();
+		for(int i=0; i<=smallestEigenValues.length; i++){
+			for(int j=0; j<=vArray.length; j++){
+				embeddingMatrix[j][i]=vArray[j][smallestEigenValues[i]];
+			}
 		}
+		return embeddingMatrix;
 	}
 	
-	public void costructAllWeightMatrix(ArrayList<ExtDataPoint> data){
-		for(int i=0; i<=data.size()-1; i++){
-			double[][] weightMatrix=this.constructWeightMatrix(data, i);
-			data.get(i).weightMatrix=weightMatrix;
+	public Integer[] calcSmallestEigenValues(double[][] sparseMatrix, int d){
+		Integer[] smallestEigenValues= new Integer[d+1];
+		Matrix M= new Matrix(sparseMatrix);
+		EigenvalueDecomposition x= new EigenvalueDecomposition(M);
+		Integer[] EigenValues=this.BubbleSort(x.getRealEigenvalues());
+		for(int i=0; i<=d; i++){
+			smallestEigenValues[i]=EigenValues[i];
 		}
+		return smallestEigenValues;
 	}
 	
-	public double[][] constructWeightMatrix(ArrayList<ExtDataPoint> data, int i){
-		double[] linearVector= data.get(i).linearVector;
-		double[][] weightMatrix= new double[linearVector.length][data.size()-1];
-		for(int j=0; j<=data.size()-1; j++){
-			for(int h=0; h<=linearVector.length-1; h++){
+//	Matrix dimension NxN
+	public double[][] calcSparseMatrix(double[][] weightMatrix){
+		Matrix I= Matrix.identity(weightMatrix.length,weightMatrix[0].length);
+		Matrix W=new Matrix(weightMatrix);
+		Matrix subtract=I.minus(W);
+		Matrix transpose = subtract.transpose();
+		Matrix M= transpose.times(subtract);
+		return M.getArray();
+	}
+	
+	public double[][] constructWeightMatrix(ArrayList<ExtDataPoint> data){
+		double[][] weightMatrix= new double[data.size()][data.size()];
+		for(int i=0; i<=data.size()-1; i++){
+			double[] linearVector= data.get(i).linearVector;
+			int h=0;
+			for(int j=0; j<=data.size()-1; j++){
 				if(data.get(i).isNeighbor(data.get(j))){
-					weightMatrix[h][j]=linearVector[h];
+					weightMatrix[i][j]=linearVector[h];
+					h++;
 				}
 				else{
-					weightMatrix[h][j]=0;
+					weightMatrix[i][j]=0;
 				}
 			}
 			
 		}
-		return weightMatrix; //weightmatrix for datapoint i
+		return weightMatrix; //weightmatrix for datapoint i, dimension NxN
 	}
 	
 	public void calcAllLinearSystems(ArrayList<ExtDataPoint> data){
