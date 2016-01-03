@@ -41,7 +41,7 @@ public class ExtDataPoint extends DataPoint {
 //		this.neighbors.add(neighbor);
 //	}
 	
-	/*
+n n        5 	/*
 	 * 
 	 */
 	
@@ -114,5 +114,5 @@ public class ExtDataPoint extends DataPoint {
 		this.sparseMatrix=this.calcSparseMatrix(this.weightMatrix);
 	}
 	
-	public
+	
 }

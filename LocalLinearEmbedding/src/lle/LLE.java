@@ -79,7 +79,7 @@ public class LLE {
 	 * @param k number of expected neighbors
 	 */
 	public ArrayList<ExtDataPoint> findAllNeighbors(int k, ArrayList<DataPoint> data, double[][] distances){
-		ArrayList<ExtDataPoint> result = new ArrayList<ExtDataPoint>();
+		ArrayList<ExtDataPoint> result = new ArrayList<ExtDataPoint>();                                                                  
 		for(int i=0; i<data.size(); i++){
 			ArrayList<Integer> neighbors=this.findNeighbours(k,i, distances);
 			ExtDataPoint temp= new ExtDataPoint(data.get(i).getAllDimensions(),k);
