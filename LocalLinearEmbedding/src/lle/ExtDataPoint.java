@@ -40,8 +40,7 @@ public class ExtDataPoint extends DataPoint {
 //	public void addNeighbor(DataPoint neighbor){
 //		this.neighbors.add(neighbor);
 //	}
-	
-n n        5 	/*
+		/*
 	 * 
 	 */
 	
