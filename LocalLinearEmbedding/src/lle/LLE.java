@@ -108,10 +108,10 @@ public class LLE {
 	public ArrayList<ExtDataPoint> findAllNeighbors(int k, ArrayList<DataPoint> data, double[][] distances){
 		ArrayList<ExtDataPoint> result = new ArrayList<ExtDataPoint>();                                                                  
 		for(int i=0; i<data.size(); i++){
-			ArrayList<Integer> neighbors=this.findNeighbours(k,i, distances);
+			Integer[] neighbors=this.findNeighbours(k,i, distances);
 			ExtDataPoint temp= new ExtDataPoint(data.get(i).getAllDimensions(),k);
-			for(int j=0; j<neighbors.size(); j++){
-				temp.addNeighbor(data.get(neighbors.get(j)));
+			for(int j=0; j<neighbors.length; j++){
+				temp.addNeighbor(data.get(neighbors[j]));
 			}
 			result.add(temp);
 		}
@@ -125,11 +125,11 @@ public class LLE {
 	 * @param i index of the "home"-DataPoint
 	 * @param distances distance matrix for neighbor calculation
 	 */
-	public ArrayList<Integer> findNeighbours(int k, int i, double[][] distances){
-		ArrayList<Integer> result = null;
-		Integer[] sortedList = this.BubbleSort(distances[i]);
-		for (int j = 1; j < k + 1; j++) {
-			result.add(sortedList[j]);
+	public Integer[] findNeighbours(int k, int i, double[][] distances){
+		Integer[] result = new Integer[k];
+		Integer[] sortedIndexList = this.BubbleSort(distances[i]);
+		for (int j = 1; j <= k; j++) {
+			result[j-1] = sortedIndexList[j];
 		}
 		return result;
 	}
@@ -165,11 +165,10 @@ public class LLE {
 		System.out.println(data.size());
 		for(int i=0; i<=data.size()-1; i++){
 			System.out.println("i=: "+i);
-			System.out.println("k=: "+data.get(i).getNumberOfDimensions());
-			for(int j=0; j<=data.get(i).getNumberOfDimensions()-1; j++){
+			for(int j=0; j<=data.size()-1; j++){
 				System.out.println("j=: "+j);
 				if(j!=i){
-					System.out.println("distance=: "+calcDistance(data.get(i),data.get(j-1)));
+					System.out.println("distance=: "+calcDistance(data.get(i),data.get(j)));
 					result[i][j]=calcDistance(data.get(i),data.get(j));
 				}
 				else{
@@ -184,7 +183,7 @@ public class LLE {
 		double result=0.0;
 		double sum=0.0;
 		//TODO check dimension length
-		for(int i=0; i<x.getNumberOfDimensions(); i++){
+		for(int i=0; i<=x.getNumberOfDimensions()-1; i++){
 			double diff= x.getDimensionN(i)-y.getDimensionN(i);
 			double square= diff*diff;
 			sum=sum+square;

@@ -65,14 +65,14 @@ public class LLETest {
 		a[0]=1.0;
 		a[1]=2.0;
 		a[2]=3.0;
-		ExtDataPoint b= new ExtDataPoint(a,2);
+		ExtDataPoint b= new ExtDataPoint(a,1);
 		DataPoint c= new DataPoint(a);
 	//when
 		b.addNeighbor(c);
 	//then
 		assertEquals(1.0, b.neighborMatrix[0][0], 0.00000001);
-		assertEquals(2.0, b.neighborMatrix[0][1], 0.00000001);
-		assertEquals(3.0, b.neighborMatrix[0][2], 0.00000001);
+		assertEquals(2.0, b.neighborMatrix[1][0], 0.00000001);
+		assertEquals(3.0, b.neighborMatrix[2][0], 0.00000001);
 	}
 	
 	@Test

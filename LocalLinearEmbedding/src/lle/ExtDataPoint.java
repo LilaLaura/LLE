@@ -29,7 +29,7 @@ public class ExtDataPoint extends DataPoint {
 
 	public ExtDataPoint(double[] dimensions,Integer k) {
 		super(dimensions);
-		neighborMatrix= new double[k][dimensions.length];
+		neighborMatrix= new double[dimensions.length][k];
 		counter=0;
 		// TODO Auto-generated constructor stub
 	}
@@ -55,16 +55,16 @@ public class ExtDataPoint extends DataPoint {
 	
 	//Matrix dimension dxk
 	public void addNeighbor(DataPoint neighbor){
-		for(int i=0; i<neighbor.getNumberOfDimensions(); i++){
-			neighborMatrix[i][counter]=neighbor.getDimensionN(i); 
+		for(int i=0; i<=neighbor.getNumberOfDimensions()-1; i++){
+			this.neighborMatrix[i][counter]=neighbor.getDimensionN(i); 
 		}
 		counter++;
 	}
 	
 	public double[][] matrixSubtraction(double[] dimensions, double[][] neighbor){
-		double[][] result = neighbor;
-		for(int i=0; i< neighbor[0].length; i++){
-			for(int j=0; j<neighbor.length; j++){
+		double[][] result = new double[neighbor.length][neighbor[0].length];
+		for(int i=0; i<= neighbor[0].length-1; i++){
+			for(int j=0; j<= neighbor.length-1; j++){
 				result[j][i]=neighbor[j][i]-dimensions[j];
 			}
 		}
