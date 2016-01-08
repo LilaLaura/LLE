@@ -2,6 +2,8 @@ package lle.tests;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+
 import org.junit.Test;
 
 import lle.DataPoint;
@@ -10,7 +12,22 @@ import lle.ExtDataPoint;
 public class ExtDataPointTest {
 
 	@Test
-	public void testIsNeighbor() {
+	public void testIsNeighborTrue() {
+		//given
+//		double[] dimensionSet1 = {1.,2.,3.};
+//		ExtDataPoint point1 = new ExtDataPoint(dimensionSet1, 1);
+//		double[] dimensionSet2 = {2.,3.,4.};
+//		ExtDataPoint point2 = new ExtDataPoint(dimensionSet2, 1);
+//		double[] dimensionSet3 = {3.,4.,5.};
+//		ExtDataPoint point3 = new ExtDataPoint(dimensionSet3, 1);
+//		ArrayList<ExtDataPoint> dataSet = new ArrayList<ExtDataPoint>();
+//		dataSet.add(point1);
+//		dataSet.add(point2);
+//		dataSet.add(point3);
+	}
+	
+	@Test
+	public void testIsNeighborFalse() {
 		fail("Not yet implemented");
 	}
 
