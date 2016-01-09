@@ -34,16 +34,28 @@ public class ExtDataPoint extends DataPoint {
 		// TODO Auto-generated constructor stub
 	}
 	
-//	/*
-//	 * add a neighbors as DataPoint
-//	 */
-//	public void addNeighbor(DataPoint neighbor){
-//		this.neighbors.add(neighbor);
-//	}
-		/*
+
+	/*
 	 * 
 	 */
 	
+	public boolean isNeighbor(DataPoint neighbor){
+		for(int i=0; i<=neighborMatrix[0].length-1; i++){
+			double[] temp = new double[neighbor.getNumberOfDimensions()];
+			for(int j=0; j<=neighbor.getNumberOfDimensions()-1; j++){
+				temp[j] = this.neighborMatrix[j][i];
+			}
+			if(Arrays.equals(temp,neighbor.getAllDimensions())){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	/*
+	 * Overloaded function so both, DataPoints and ExtDataPoints can be used to
+	 * check if it is a neighbor
+	 */
 	public boolean isNeighbor(ExtDataPoint neighbor){
 		for(int i=0; i<neighborMatrix.length; i++){
 			if(Arrays.equals(this.neighborMatrix[i],neighbor.getAllDimensions())){
@@ -61,6 +73,10 @@ public class ExtDataPoint extends DataPoint {
 		counter++;
 	}
 	
+	/*
+	 * substracting a given dataopint from a given distance matrix
+	 * 
+	 */
 	public double[][] matrixSubtraction(double[] dimensions, double[][] neighbor){
 		double[][] result = new double[neighbor.length][neighbor[0].length];
 		for(int i=0; i<= neighbor[0].length-1; i++){
