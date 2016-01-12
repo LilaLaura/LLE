@@ -9,6 +9,8 @@ import lle.ExtDataPoint;
 import lle.LLE;
 
 import org.junit.Test;
+
+import Jama.Matrix;
 import static org.junit.Assert.*;
 
 public class LLETest {
@@ -16,16 +18,57 @@ public class LLETest {
 	@Test
 	public void testEmbeddingMatrix() {
 		fail("Not yet implemented");
+//		//given
+//		double[][] a= {{3./2,-7./6,1./2,-1.,-2.3},{-7./6,14./9,-3./4,1./2,1./9},{1./2,-3./4,13./8,-1./4,-1./3},{-1.,1./2,-1./4,3./2,-1./6},{-2./3,1./9,-1./3,-1./6,14./9}};
+		
 	}
 
 	@Test
 	public void testCalcSmallestEigenValues() {
-		fail("Not yet implemented");
+		//given
+		double[][] a= {{3./2,-7./6,1./2,-1.,-2.3},{-7./6,14./9,-3./4,1./2,1./9},{1./2,-3./4,13./8,-1./4,-1./3},{-1.,1./2,-1./4,3./2,-1./6},{-2./3,1./9,-1./3,-1./6,14./9}};
+		LLE f= new LLE(null,0);
+		//when
+		Integer[] smallestEigenValues=f.calcSmallestEigenValues(a,2);
+		//then
+		assertEquals(1,smallestEigenValues[0],0.00000001);
+		assertEquals(4,smallestEigenValues[1],0.00000001);
+		assertEquals(2,smallestEigenValues[2],0.00000001);
 	}
 
 	@Test
 	public void testCalcSparseMatrix() {
-		fail("Not yet implemented");
+		//given
+		double[][] a= {{0.,0.,2.,0.,1.},{1.,0.,0.,0.,1.},{0.,1.,0.,3.,0.},{2.,0.,0.,0.,0.},{0.,3.,4.,1.,0.}};
+		LLE f= new LLE(null,0);
+		//when
+		double[][] M= f.calcSparseMatrix(a);
+		//then
+		assertEquals(6.0, M[0][0], 0.00000001);
+		assertEquals(-1.0, M[1][0], 0.00000001);
+		assertEquals(-2.0, M[2][0], 0.00000001);
+		assertEquals(-2.0, M[3][0], 0.00000001);
+		assertEquals(0.0, M[4][0], 0.00000001);
+		assertEquals(-1.0, M[0][1], 0.00000001);
+		assertEquals(11.0, M[1][1], 0.00000001);
+		assertEquals(11.0, M[2][1], 0.00000001);
+		assertEquals(6.0, M[3][1], 0.00000001);
+		assertEquals(-4.0, M[4][1], 0.00000001);
+		assertEquals(-2.0, M[0][2], 0.00000001);
+		assertEquals(11.0, M[1][2], 0.00000001);
+		assertEquals(21.0, M[2][2], 0.00000001);
+		assertEquals(1.0, M[3][2], 0.00000001);				
+		assertEquals(-2.0, M[4][2], 0.00000001);
+		assertEquals(-2.0, M[0][3], 0.00000001);
+		assertEquals(6.0, M[1][3], 0.00000001);
+		assertEquals(1.0, M[2][3], 0.00000001);
+		assertEquals(11.0, M[3][3], 0.00000001);
+		assertEquals(-1.0, M[4][3], 0.00000001);
+		assertEquals(0.0, M[0][4], 0.00000001);
+		assertEquals(-4.0, M[1][4], 0.00000001);
+		assertEquals(-2.0, M[2][4], 0.00000001);
+		assertEquals(-1.0, M[3][4], 0.00000001);
+		assertEquals(3.0, M[4][4], 0.00000001);
 	}
 
 	@Test
@@ -36,16 +79,84 @@ public class LLETest {
 	@Test
 	public void testCalcAllLinearSystems() {
 		fail("Not yet implemented");
+//		//given
+//		double[] a= {1.,6.,3.};
+//		ExtDataPoint x= new ExtDataPoint(a,3);
+//		double[] b= {1.,5.,10.};
+//		ExtDataPoint y= new ExtDataPoint(b,3);
+//		double[] c= {7.,4.,9.};
+//		ExtDataPoint z= new ExtDataPoint(c,3);
+//		ArrayList<ExtDataPoint> g= new ArrayList<ExtDataPoint>();
+//		g.add(x);
+//		g.add(y);
+//		g.add(z);
+//		LLE d= new LLE(null,0);
+//		//when
+//		double[] linSysVec= d.calcAllLinearSystems(g);
+//		//then
+//		assertEquals(0.1, linSysVec[0], 0.00000001);
+//		assertEquals(0.0625, linSysVec[1], 0.00000001);
+//		assertEquals(0.05, linSysVec[2], 0.00000001);
 	}
 
 	@Test
 	public void testCalcAllCovariance() {
 		fail("Not yet implemented");
+//		//given
+//		double[] a= {1.,2.,3.};
+//		ExtDataPoint x= new ExtDataPoint(a,3);
+//		double[] b= {4.,5.,6.};
+//		ExtDataPoint y= new ExtDataPoint(b,3);
+//		double[] c= {7.,8.,9.};
+//		ExtDataPoint z= new ExtDataPoint(c,3);
+//		ArrayList<ExtDataPoint> g= new ArrayList<ExtDataPoint>();
+//		g.add(x);
+//		g.add(y);
+//		g.add(z);
+//		LLE d= new LLE(null,0);
+//		//when
+//		double[][] covar= d.calcAllCovariance(g);
+//		//then
+//		assertEquals(66.0, covar[0][0], 0.00000001);
+//		assertEquals(78.0, covar[1][0], 0.00000001);
+//		assertEquals(90.0, covar[2][0], 0.00000001);
+//		assertEquals(78.0, covar[0][1], 0.00000001);
+//		assertEquals(93.0, covar[1][1], 0.00000001);
+//		assertEquals(108.0, covar[2][1], 0.00000001);
+//		assertEquals(90.0, covar[0][2], 0.00000001);
+//		assertEquals(108.0, covar[1][2], 0.00000001);
+//		assertEquals(126.0, covar[2][2], 0.00000001);
 	}
 
 	@Test
 	public void testSubractAllRows() {
 		fail("Not yet implemented");
+//		//given
+//		double[] a= {1.,4.,7.};
+//		ExtDataPoint x= new ExtDataPoint(a,3);
+//		double[] b= {2.,5.,8.};
+//		ExtDataPoint y= new ExtDataPoint(b,3);
+//		double[] c= {3.,6.,9.};
+//		ExtDataPoint z= new ExtDataPoint(c,3);
+//		double[] point={1.,2.,3.};
+//		ExtDataPoint xi= new ExtDataPoint(point,3);
+//		ArrayList<ExtDataPoint> g= new ArrayList<ExtDataPoint>();
+//		g.add(x);
+//		g.add(y);
+//		g.add(z);
+//		LLE d= new LLE(null,0);
+//		//when
+//		double[][] subtract= d.subtractAllRows(g);
+//		//then
+//		assertEquals(0.0, subtract[0][0], 0.00000001);
+//		assertEquals(2.0, subtract[1][0], 0.00000001);
+//		assertEquals(4.0, subtract[2][0], 0.00000001);
+//		assertEquals(1.0, subtract[0][1], 0.00000001);
+//		assertEquals(3.0, subtract[1][1], 0.00000001);
+//		assertEquals(5.0, subtract[2][1], 0.00000001);
+//		assertEquals(2.0, subtract[0][2], 0.00000001);
+//		assertEquals(4.0, subtract[1][2], 0.00000001);
+//		assertEquals(6.0, subtract[2][2], 0.00000001);
 	}
 
 	@Test

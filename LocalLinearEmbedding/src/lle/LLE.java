@@ -95,7 +95,7 @@ public class LLE {
 		}
 	}
 	
-	public void subractAllRows(ArrayList<ExtDataPoint> data){
+	public void subtractAllRows(ArrayList<ExtDataPoint> data){
 		for(int i=0; i<=data.size()-1; i++){
 			data.get(i).doSubtraction();
 		}

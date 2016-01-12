@@ -74,7 +74,7 @@ public class ExtDataPoint extends DataPoint {
 	}
 	
 	/*
-	 * substracting a given dataopint from a given distance matrix
+	 * substracting a given datapoint from a given distance matrix
 	 * 
 	 */
 	public double[][] matrixSubtraction(double[] dimensions, double[][] neighbor){
