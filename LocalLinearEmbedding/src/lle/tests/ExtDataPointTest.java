@@ -77,7 +77,6 @@ public class ExtDataPointTest {
 		assertEquals(3.75, result[2][2], 0.00000001);
 	}
 
-	//TODO set correct values
 	@Test
 	public void testCalcCovariance() {
 		//given
@@ -97,39 +96,38 @@ public class ExtDataPointTest {
 		//when
 		double[][] result = a.calcCovariance(subtractedNeighborMatrix);
 		//then
-		assertEquals(1., result[0][0], 0.00000001);
-		assertEquals(2., result[1][0], 0.00000001);
-		assertEquals(3., result[2][0], 0.00000001);
-		assertEquals(1.5, result[0][1], 0.00000001);
-		assertEquals(2.5, result[1][1], 0.00000001);
-		assertEquals(3.5, result[2][1], 0.00000001);
-		assertEquals(1.75, result[0][2], 0.00000001);
-		assertEquals(2.75, result[1][2], 0.00000001);
-		assertEquals(3.75, result[2][2], 0.00000001);
+		assertEquals(29, result[0][0], 0.00000001);
+		assertEquals(33.5, result[1][0], 0.00000001);
+		assertEquals(35.75, result[2][0], 0.00000001);
+		assertEquals(33.5, result[0][1], 0.00000001);
+		assertEquals(38.75, result[1][1], 0.00000001);
+		assertEquals(41.375, result[2][1], 0.00000001);
+		assertEquals(35.75, result[0][2], 0.00000001);
+		assertEquals(41.375, result[1][2], 0.00000001);
+		assertEquals(44.1875, result[2][2], 0.00000001);
 	}
 
-	//TODO set correct values
 	@Test
 	public void testSolveLinearSystem() {
 		double[] dimensionSet1 = {1.,1.,1.};
 		double[][] covarianceNeighborMatrix = new double[3][3];
-		covarianceNeighborMatrix[0][0] = 2.;
-		covarianceNeighborMatrix[1][0] = 3.;
-		covarianceNeighborMatrix[2][0] = 4.;
-		covarianceNeighborMatrix[0][1] = 2.5;
-		covarianceNeighborMatrix[1][1] = 3.5;
-		covarianceNeighborMatrix[2][1] = 4.5;
-		covarianceNeighborMatrix[0][2] = 2.75;
-		covarianceNeighborMatrix[1][2] = 3.75;
-		covarianceNeighborMatrix[2][2] = 4.75;
+		covarianceNeighborMatrix[0][0] = 1.;
+		covarianceNeighborMatrix[1][0] = 2.;
+		covarianceNeighborMatrix[2][0] = 3.;
+		covarianceNeighborMatrix[0][1] = 2.;
+		covarianceNeighborMatrix[1][1] = 3.;
+		covarianceNeighborMatrix[2][1] = 1.;
+		covarianceNeighborMatrix[0][2] = 3.;
+		covarianceNeighborMatrix[1][2] = 1.;
+		covarianceNeighborMatrix[2][2] = 2.;
 		//just initializing a ExtDataPoint to call the function; values does not matter
 		ExtDataPoint a = new ExtDataPoint(dimensionSet1, 1);
 		//when
 		double[] result = a.solveLinearSystem(covarianceNeighborMatrix);
 		//then
-		assertEquals(1., result[0], 0.00000001);
-		assertEquals(2., result[1], 0.00000001);
-		assertEquals(3., result[2], 0.00000001);
+		assertEquals(1./6, result[0], 0.00000001);
+		assertEquals(1./6, result[1], 0.00000001);
+		assertEquals(1./6, result[2], 0.00000001);
 	}
 
 }

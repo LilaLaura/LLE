@@ -78,8 +78,8 @@ public class LLETest {
 
 	@Test
 	public void testCalcAllLinearSystems() {
-		fail("Not yet implemented");
 //		//given
+//		double[] dimensionSet1 = {1.,1.,1.};
 //		double[] a= {1.,6.,3.};
 //		ExtDataPoint x= new ExtDataPoint(a,3);
 //		double[] b= {1.,5.,10.};
@@ -90,9 +90,9 @@ public class LLETest {
 //		g.add(x);
 //		g.add(y);
 //		g.add(z);
-//		LLE d= new LLE(null,0);
+//		ExtDataPoint a = new ExtDataPoint(dimensionSet1, 1);
 //		//when
-//		double[] linSysVec= d.calcAllLinearSystems(g);
+//		double[] linSysVec= a.calcAllLinearSystems(g);
 //		//then
 //		assertEquals(0.1, linSysVec[0], 0.00000001);
 //		assertEquals(0.0625, linSysVec[1], 0.00000001);
