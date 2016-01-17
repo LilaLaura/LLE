@@ -78,6 +78,7 @@ public class LLETest {
 
 	@Test
 	public void testCalcAllLinearSystems() {
+		fail("Not yet implemented");
 //		//given
 //		double[] dimensionSet1 = {1.,1.,1.};
 //		double[] a= {1.,6.,3.};
