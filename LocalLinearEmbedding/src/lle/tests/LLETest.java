@@ -20,7 +20,7 @@ public class LLETest {
 		//given
 		double[][] sparseMatrix= {{3./2,-7./6,1./2,-1.,-2./3},{-7./6,14./9,-3./4,1./2,1./9},{1./2,-3./4,13./8,-1./4,-1./3},{-1.,1./2,-1./4,3./2,-1./6},{-2./3,1./9,-1./3,-1./6,14./9}};
 		Integer[] smallestEigenValues={0,1,2};
-		LLE d= new LLE(null,0);
+		LLE d= new LLE(null,0,0);
 		//when
 		double[][] embeddingMatrix=d.embeddingMatrix(sparseMatrix, smallestEigenValues);
 		//then
@@ -40,7 +40,7 @@ public class LLETest {
 	public void testCalcSmallestEigenValues() {
 		//given
 		double[][] a= {{3./2,-7./6,1./2,-1.,-2./3},{-7./6,14./9,-3./4,1./2,1./9},{1./2,-3./4,13./8,-1./4,-1./3},{-1.,1./2,-1./4,3./2,-1./6},{-2./3,1./9,-1./3,-1./6,14./9}};
-		LLE f= new LLE(null,0);
+		LLE f= new LLE(null,0,0);
 		//when
 		Integer[] smallestEigenValues=f.calcSmallestEigenValues(a,2);
 		//then
@@ -53,7 +53,7 @@ public class LLETest {
 	public void testCalcSparseMatrix() {
 		//given
 		double[][] a= {{0.,0.,2.,0.,1.},{1.,0.,0.,0.,1.},{0.,1.,0.,3.,0.},{2.,0.,0.,0.,0.},{0.,3.,4.,1.,0.}};
-		LLE f= new LLE(null,0);
+		LLE f= new LLE(null,0,0);
 		//when
 		double[][] M= f.calcSparseMatrix(a);
 		//then
@@ -143,7 +143,7 @@ public class LLETest {
 		data.add(cd);
 		data.add(dd);
 		data.add(ed);
-		LLE d= new LLE(null,0);
+		LLE d= new LLE(null,0,0);
 		//when
 		double[][] weight=d.constructWeightMatrix(data);
 		//then
@@ -203,7 +203,7 @@ public class LLETest {
 			zc.add(bd);
 			zc.add(dd);
 			zc.add(ed);
-			LLE d= new LLE(null,0);
+			LLE d= new LLE(null,0,0);
 			double[][] e= d.calcDistanceMatrix(zc);
 		//when
 			ArrayList<ExtDataPoint> f= d.findAllNeighbors(2, zc, e);
@@ -245,7 +245,7 @@ public class LLETest {
 		zc.add(ad);
 		zc.add(bd);
 		zc.add(dd);
-		LLE d= new LLE(null,0);
+		LLE d= new LLE(null,0,0);
 		double[][] e= d.calcDistanceMatrix(zc);
 	//when
 		Integer[] f= d.findNeighbours(1, 1, e);
@@ -257,7 +257,7 @@ public class LLETest {
 	@Test
 	public void testBubbleSort() {
 		//given
-				LLE a= new LLE(null,0);
+				LLE a= new LLE(null,0,0);
 				double[] b= new double[5];
 				b[0]=1.0;
 				b[1]=6.0;
@@ -292,7 +292,7 @@ public class LLETest {
 				g.add(x);
 				g.add(y);
 				g.add(z);
-				LLE MyLLE = new LLE (null, 0);
+				LLE MyLLE = new LLE (null, 0,0);
 				//when
 				double[][] dist = MyLLE.calcDistanceMatrix( g );
 				//then
@@ -314,7 +314,7 @@ public class LLETest {
 		DataPoint x= new DataPoint(a);
 		double[] b= {4.,3.,6.};		
 		DataPoint y= new DataPoint(b);
-		LLE MyLLE = new LLE (null, 0);
+		LLE MyLLE = new LLE (null, 0,0);
 		//when
 		double output= MyLLE.calcDistance(x, y);
 		//then

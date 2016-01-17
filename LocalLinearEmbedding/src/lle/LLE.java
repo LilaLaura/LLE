@@ -10,12 +10,15 @@ public class LLE {
 	ArrayList<DataPoint> data;
 	double[][] distances;
 	ArrayList<ExtDataPoint> dataWithNeighbors;
-	
+	double[][] weightMatrix;
+	double[][] sparseMatrix;
+	Integer[] smallestEigenValues;
+	double[][] embeddingMatrix;
 	/* constructor 
 	 * 
 	 * @param k number of expected neighbors
 	 */
-	public LLE(ArrayList<DataPoint> data, int k) {
+	public LLE(ArrayList<DataPoint> data, int k, int d) {
 		super();
 		//ensure input data is not null, this would raise a nullPointerException
 		if( data != null && k != 0)
@@ -26,6 +29,13 @@ public class LLE {
 			this.distances = this.calcDistanceMatrix(data);
 			//calculate and remember the neighbors of all DataPoints
 			this.dataWithNeighbors = this.findAllNeighbors(k, data, distances);
+			this.subtractAllRows(dataWithNeighbors);
+			this.calcAllCovariance(dataWithNeighbors);
+			this.calcAllLinearSystems(dataWithNeighbors);
+			this.weightMatrix=this.constructWeightMatrix(dataWithNeighbors);
+			this.sparseMatrix=this.calcSparseMatrix(weightMatrix);
+			this.smallestEigenValues=this.calcSmallestEigenValues(sparseMatrix, d);
+			this.embeddingMatrix=this.embeddingMatrix(sparseMatrix, smallestEigenValues);
 		}
 	}
 	
