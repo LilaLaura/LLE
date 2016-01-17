@@ -31,6 +31,7 @@ public class ExtDataPoint extends DataPoint {
 		super(dimensions);
 		neighborMatrix= new double[dimensions.length][k];
 		counter=0;
+		this.linearVector=new double[k];
 		// TODO Auto-generated constructor stub
 	}
 	
