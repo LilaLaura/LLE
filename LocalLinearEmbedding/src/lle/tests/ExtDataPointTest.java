@@ -31,6 +31,27 @@ public class ExtDataPointTest {
 	}
 
 	@Test
+	public void testIsNeighborExt() {
+		//given
+		double[] dimensionSet1 = {1.,2.,3.};
+		ExtDataPoint point1 = new ExtDataPoint(dimensionSet1, 1);
+		double[] dimensionSet2 = {2.,3.,4.};
+		DataPoint point2 = new DataPoint(dimensionSet2);
+		ExtDataPoint extpoint2= new ExtDataPoint(dimensionSet2,1);
+		double[] dimensionSet3 = {3.,4.,5.};
+		DataPoint point3 = new DataPoint(dimensionSet3);
+		ExtDataPoint extpoint3= new ExtDataPoint(dimensionSet3,1);
+		point1.addNeighbor(point2);
+		//when
+		boolean test1 = point1.isNeighbor(extpoint2);
+		boolean test2 = point1.isNeighbor(extpoint3);
+		//then
+		assertTrue("Point2 is a not neighbor", test1);
+		assertFalse("Point3 is a neighbor", test2);
+		
+	}
+
+	@Test
 	public void testAddNeighbor() {
 		//given
 			double[] a =new double[3];

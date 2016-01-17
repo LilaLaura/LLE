@@ -58,8 +58,12 @@ public class ExtDataPoint extends DataPoint {
 	 * check if it is a neighbor
 	 */
 	public boolean isNeighbor(ExtDataPoint neighbor){
-		for(int i=0; i<neighborMatrix.length; i++){
-			if(Arrays.equals(this.neighborMatrix[i],neighbor.getAllDimensions())){
+		for(int i=0; i<=neighborMatrix[0].length-1; i++){
+			double[] temp = new double[neighbor.getNumberOfDimensions()];
+			for(int j=0; j<=neighbor.getNumberOfDimensions()-1; j++){
+				temp[j] = this.neighborMatrix[j][i];
+			}
+			if(Arrays.equals(temp,neighbor.getAllDimensions())){
 				return true;
 			}
 		}

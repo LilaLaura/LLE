@@ -35,9 +35,9 @@ public class LLE {
 		EigenvalueDecomposition x= new EigenvalueDecomposition(M);
 		Matrix V=x.getV();
 		double[][] vArray=V.getArray();
-		for(int i=0; i<=smallestEigenValues.length; i++){
-			for(int j=0; j<=vArray.length; j++){
-				embeddingMatrix[j][i]=vArray[j][smallestEigenValues[i]];
+		for(int i=1; i<=smallestEigenValues.length-1; i++){
+			for(int j=0; j<=vArray.length-1; j++){
+				embeddingMatrix[j][i-1]=vArray[j][smallestEigenValues[i]];
 			}
 		}
 		return embeddingMatrix;
@@ -69,13 +69,18 @@ public class LLE {
 		for(int i=0; i<=data.size()-1; i++){
 			double[] linearVector= data.get(i).linearVector;
 			int h=0;
+			double sum=0.0;
+			for(int f=0; f<=linearVector.length-1; f++){
+				sum+=linearVector[f];
+			}
 			for(int j=0; j<=data.size()-1; j++){
 				if(data.get(i).isNeighbor(data.get(j))){
-					weightMatrix[i][j]=linearVector[h];
+					System.out.println(j+" "+i+" :"+sum);
+					weightMatrix[j][i]=linearVector[h]/sum;
 					h++;
 				}
 				else{
-					weightMatrix[i][j]=0;
+					weightMatrix[j][i]=0;
 				}
 			}
 			

@@ -17,10 +17,23 @@ public class LLETest {
 	
 	@Test
 	public void testEmbeddingMatrix() {
-		fail("Not yet implemented");
-//		//given
-//		double[][] a= {{3./2,-7./6,1./2,-1.,-2.3},{-7./6,14./9,-3./4,1./2,1./9},{1./2,-3./4,13./8,-1./4,-1./3},{-1.,1./2,-1./4,3./2,-1./6},{-2./3,1./9,-1./3,-1./6,14./9}};
-		
+		//given
+		double[][] sparseMatrix= {{3./2,-7./6,1./2,-1.,-2./3},{-7./6,14./9,-3./4,1./2,1./9},{1./2,-3./4,13./8,-1./4,-1./3},{-1.,1./2,-1./4,3./2,-1./6},{-2./3,1./9,-1./3,-1./6,14./9}};
+		Integer[] smallestEigenValues={0,1,2};
+		LLE d= new LLE(null,0);
+		//when
+		double[][] embeddingMatrix=d.embeddingMatrix(sparseMatrix, smallestEigenValues);
+		//then
+		assertEquals(0.13516,embeddingMatrix[0][0],0.00001);
+		assertEquals(-0.66391,embeddingMatrix[1][0],0.00001);
+		assertEquals(-0.48199,embeddingMatrix[2][0],0.00001);
+		assertEquals(0.54086,embeddingMatrix[3][0],0.00001);
+		assertEquals(0.12693,embeddingMatrix[4][0],0.00001);
+		assertEquals(0.33662,embeddingMatrix[0][1],0.00001);
+		assertEquals(0.25685,embeddingMatrix[1][1],0.00001);
+		assertEquals(-0.72235,embeddingMatrix[2][1],0.00001);
+		assertEquals(-0.30628,embeddingMatrix[3][1],0.00001);
+		assertEquals(-0.45290,embeddingMatrix[4][1],0.00001);
 	}
 
 	@Test
@@ -135,27 +148,27 @@ public class LLETest {
 		double[][] weight=d.constructWeightMatrix(data);
 		//then
 		assertEquals(0.0, weight[0][0], 0.00000001);
-		assertEquals(1.0, weight[1][0], 0.00000001);
+		assertEquals(1./3, weight[1][0], 0.00000001);
 		assertEquals(0.0, weight[2][0], 0.00000001);
-		assertEquals(2.0, weight[3][0], 0.00000001);
+		assertEquals(2./3, weight[3][0], 0.00000001);
 		assertEquals(0.0, weight[4][0], 0.00000001);
 		assertEquals(0.0, weight[0][1], 0.00000001);
 		assertEquals(0.0, weight[1][1], 0.00000001);
-		assertEquals(1.0, weight[2][1], 0.00000001);
+		assertEquals(1./4, weight[2][1], 0.00000001);
 		assertEquals(0.0, weight[3][1], 0.00000001);
-		assertEquals(3.0, weight[4][1], 0.00000001);
-		assertEquals(2.0, weight[0][2], 0.00000001);
+		assertEquals(3./4, weight[4][1], 0.00000001);
+		assertEquals(2./6, weight[0][2], 0.00000001);
 		assertEquals(0.0, weight[1][2], 0.00000001);
 		assertEquals(0.0, weight[2][2], 0.00000001);
 		assertEquals(0.0, weight[3][2], 0.00000001);
-		assertEquals(4.0, weight[4][2], 0.00000001);
+		assertEquals(4./6, weight[4][2], 0.00000001);
 		assertEquals(0.0, weight[0][3], 0.00000001);
 		assertEquals(0.0, weight[1][3], 0.00000001);
-		assertEquals(3.0, weight[2][3], 0.00000001);
+		assertEquals(3./4, weight[2][3], 0.00000001);
 		assertEquals(0.0, weight[3][3], 0.00000001);
-		assertEquals(1.0, weight[4][3], 0.00000001);
-		assertEquals(1.0, weight[0][4], 0.00000001);
-		assertEquals(1.0, weight[1][4], 0.00000001);
+		assertEquals(1./4, weight[4][3], 0.00000001);
+		assertEquals(1./2, weight[0][4], 0.00000001);
+		assertEquals(1./2, weight[1][4], 0.00000001);
 		assertEquals(0.0, weight[2][4], 0.00000001);
 		assertEquals(0.0, weight[3][4], 0.00000001);
 		assertEquals(0.0, weight[4][4], 0.00000001);
