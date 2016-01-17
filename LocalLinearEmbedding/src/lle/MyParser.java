@@ -54,11 +54,8 @@ public class MyParser {
 		
 		//get the number of columns 
 		int i = 0;
-		Scanner scanner1 = new Scanner(aRow);
-		while (scanner1.hasNext()) {
-			i++;
-		}
-		scanner1.close();
+		String[] temp = aRow.split(";");
+		i= temp.length;
 		
 		//initialize result list		
 		double[] result = new double[i];
