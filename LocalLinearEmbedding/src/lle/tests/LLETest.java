@@ -73,91 +73,93 @@ public class LLETest {
 
 	@Test
 	public void testConstructWeightMatrix() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testCalcAllLinearSystems() {
-		fail("Not yet implemented");
-//		//given
-//		double[] dimensionSet1 = {1.,1.,1.};
-//		double[] a= {1.,6.,3.};
-//		ExtDataPoint x= new ExtDataPoint(a,3);
-//		double[] b= {1.,5.,10.};
-//		ExtDataPoint y= new ExtDataPoint(b,3);
-//		double[] c= {7.,4.,9.};
-//		ExtDataPoint z= new ExtDataPoint(c,3);
-//		ArrayList<ExtDataPoint> g= new ArrayList<ExtDataPoint>();
-//		g.add(x);
-//		g.add(y);
-//		g.add(z);
-//		ExtDataPoint a = new ExtDataPoint(dimensionSet1, 1);
-//		//when
-//		double[] linSysVec= a.calcAllLinearSystems(g);
-//		//then
-//		assertEquals(0.1, linSysVec[0], 0.00000001);
-//		assertEquals(0.0625, linSysVec[1], 0.00000001);
-//		assertEquals(0.05, linSysVec[2], 0.00000001);
-	}
-
-	@Test
-	public void testCalcAllCovariance() {
-		fail("Not yet implemented");
-//		//given
-//		double[] a= {1.,2.,3.};
-//		ExtDataPoint x= new ExtDataPoint(a,3);
-//		double[] b= {4.,5.,6.};
-//		ExtDataPoint y= new ExtDataPoint(b,3);
-//		double[] c= {7.,8.,9.};
-//		ExtDataPoint z= new ExtDataPoint(c,3);
-//		ArrayList<ExtDataPoint> g= new ArrayList<ExtDataPoint>();
-//		g.add(x);
-//		g.add(y);
-//		g.add(z);
-//		LLE d= new LLE(null,0);
-//		//when
-//		double[][] covar= d.calcAllCovariance(g);
-//		//then
-//		assertEquals(66.0, covar[0][0], 0.00000001);
-//		assertEquals(78.0, covar[1][0], 0.00000001);
-//		assertEquals(90.0, covar[2][0], 0.00000001);
-//		assertEquals(78.0, covar[0][1], 0.00000001);
-//		assertEquals(93.0, covar[1][1], 0.00000001);
-//		assertEquals(108.0, covar[2][1], 0.00000001);
-//		assertEquals(90.0, covar[0][2], 0.00000001);
-//		assertEquals(108.0, covar[1][2], 0.00000001);
-//		assertEquals(126.0, covar[2][2], 0.00000001);
-	}
-
-	@Test
-	public void testSubractAllRows() {
-		fail("Not yet implemented");
-//		//given
-//		double[] a= {1.,4.,7.};
-//		ExtDataPoint x= new ExtDataPoint(a,3);
-//		double[] b= {2.,5.,8.};
-//		ExtDataPoint y= new ExtDataPoint(b,3);
-//		double[] c= {3.,6.,9.};
-//		ExtDataPoint z= new ExtDataPoint(c,3);
-//		double[] point={1.,2.,3.};
-//		ExtDataPoint xi= new ExtDataPoint(point,3);
-//		ArrayList<ExtDataPoint> g= new ArrayList<ExtDataPoint>();
-//		g.add(x);
-//		g.add(y);
-//		g.add(z);
-//		LLE d= new LLE(null,0);
-//		//when
-//		double[][] subtract= d.subtractAllRows(g);
-//		//then
-//		assertEquals(0.0, subtract[0][0], 0.00000001);
-//		assertEquals(2.0, subtract[1][0], 0.00000001);
-//		assertEquals(4.0, subtract[2][0], 0.00000001);
-//		assertEquals(1.0, subtract[0][1], 0.00000001);
-//		assertEquals(3.0, subtract[1][1], 0.00000001);
-//		assertEquals(5.0, subtract[2][1], 0.00000001);
-//		assertEquals(2.0, subtract[0][2], 0.00000001);
-//		assertEquals(4.0, subtract[1][2], 0.00000001);
-//		assertEquals(6.0, subtract[2][2], 0.00000001);
+		//given
+		double[] za =new double[3];
+		za[0]=0.0;
+		za[1]=0.0;
+		za[2]=0.0;
+		ExtDataPoint ad= new ExtDataPoint(za,2);
+		DataPoint dad= new DataPoint(za);
+		double[] zb =new double[3];
+		zb[0]=1.0;
+		zb[1]=1.0;
+		zb[2]=1.0;
+		ExtDataPoint bd= new ExtDataPoint(zb,2);
+		DataPoint dbd= new DataPoint(zb);
+		double[] zc =new double[3];
+		zc[0]=2.0;
+		zc[1]=2.0;
+		zc[2]=2.0;
+		ExtDataPoint cd= new ExtDataPoint(zc,2);
+		DataPoint dcd= new DataPoint(zc);
+		double[] zd =new double[3];
+		zd[0]=3.0;
+		zd[1]=3.0;
+		zd[2]=3.0;
+		ExtDataPoint dd= new ExtDataPoint(zd,2);
+		DataPoint ddd=new DataPoint(zd);
+		double[] ze= new double[3];
+		ze[0]=4.0;
+		ze[1]=4.0;
+		ze[2]=4.0;
+		ExtDataPoint ed= new ExtDataPoint(ze,2);
+		DataPoint ded= new DataPoint(ze);
+		ad.addNeighbor(dbd);
+		ad.addNeighbor(ddd);
+		bd.addNeighbor(dcd);
+		bd.addNeighbor(ded);
+		cd.addNeighbor(dad);
+		cd.addNeighbor(ded);
+		dd.addNeighbor(dcd);
+		dd.addNeighbor(ded);
+		ed.addNeighbor(dad);
+		ed.addNeighbor(dbd);
+		ad.linearVector[0]=1.;
+		ad.linearVector[1]=2.;
+		bd.linearVector[0]=1.;
+		bd.linearVector[1]=3.;
+		cd.linearVector[0]=2.;
+		cd.linearVector[1]=4.;
+		dd.linearVector[0]=3.;
+		dd.linearVector[1]=1.;
+		ed.linearVector[0]=1.;
+		ed.linearVector[1]=1.;
+		ArrayList<ExtDataPoint> data= new ArrayList<ExtDataPoint>();
+		data.add(ad);
+		data.add(bd);
+		data.add(cd);
+		data.add(dd);
+		data.add(ed);
+		LLE d= new LLE(null,0);
+		//when
+		double[][] weight=d.constructWeightMatrix(data);
+		//then
+		assertEquals(0.0, weight[0][0], 0.00000001);
+		assertEquals(1.0, weight[1][0], 0.00000001);
+		assertEquals(0.0, weight[2][0], 0.00000001);
+		assertEquals(2.0, weight[3][0], 0.00000001);
+		assertEquals(0.0, weight[4][0], 0.00000001);
+		assertEquals(0.0, weight[0][1], 0.00000001);
+		assertEquals(0.0, weight[1][1], 0.00000001);
+		assertEquals(1.0, weight[2][1], 0.00000001);
+		assertEquals(0.0, weight[3][1], 0.00000001);
+		assertEquals(3.0, weight[4][1], 0.00000001);
+		assertEquals(2.0, weight[0][2], 0.00000001);
+		assertEquals(0.0, weight[1][2], 0.00000001);
+		assertEquals(0.0, weight[2][2], 0.00000001);
+		assertEquals(0.0, weight[3][2], 0.00000001);
+		assertEquals(4.0, weight[4][2], 0.00000001);
+		assertEquals(0.0, weight[0][3], 0.00000001);
+		assertEquals(0.0, weight[1][3], 0.00000001);
+		assertEquals(3.0, weight[2][3], 0.00000001);
+		assertEquals(0.0, weight[3][3], 0.00000001);
+		assertEquals(1.0, weight[4][3], 0.00000001);
+		assertEquals(1.0, weight[0][4], 0.00000001);
+		assertEquals(1.0, weight[1][4], 0.00000001);
+		assertEquals(0.0, weight[2][4], 0.00000001);
+		assertEquals(0.0, weight[3][4], 0.00000001);
+		assertEquals(0.0, weight[4][4], 0.00000001);
+		
 	}
 
 	@Test
@@ -173,20 +175,70 @@ public class LLETest {
 			zb[1]=1.0;
 			zb[2]=1.0;
 			DataPoint bd= new DataPoint(zb);
+			double[] zd =new double[3];
+			zd[0]=0.0;
+			zd[1]=1.0;
+			zd[2]=1.0;
+			DataPoint dd= new DataPoint(zd);
+			double[] ze =new double[3];
+			ze[0]=5.0;
+			ze[1]=7.0;
+			ze[2]=9.0;
+			DataPoint ed= new DataPoint(ze);
 			ArrayList<DataPoint> zc =new ArrayList<DataPoint>();
 			zc.add(ad);
 			zc.add(bd);
+			zc.add(dd);
+			zc.add(ed);
 			LLE d= new LLE(null,0);
 			double[][] e= d.calcDistanceMatrix(zc);
 		//when
-			ArrayList<ExtDataPoint> f= d.findAllNeighbors(1, zc, e);
+			ArrayList<ExtDataPoint> f= d.findAllNeighbors(2, zc, e);
 		//then
-			assertEquals(2,f.size());
+			assertEquals(4,f.size());
+			assertTrue(f.get(0).isNeighbor(bd));
+			assertTrue(f.get(0).isNeighbor(dd));
+			assertFalse(f.get(0).isNeighbor(ed));
+			assertTrue(f.get(1).isNeighbor(ad));
+			assertTrue(f.get(1).isNeighbor(dd));
+			assertFalse(f.get(1).isNeighbor(ed));
+			assertTrue(f.get(2).isNeighbor(ad));
+			assertTrue(f.get(2).isNeighbor(bd));
+			assertFalse(f.get(2).isNeighbor(ed));
+			assertTrue(f.get(3).isNeighbor(ad));
+			assertTrue(f.get(3).isNeighbor(bd));
+			assertFalse(f.get(3).isNeighbor(dd));
 	}
 
 	@Test
 	public void testFindNeighbours() {
-		fail("Not yet implemented");
+		//given
+		double[] za =new double[3];
+		za[0]=1.0;
+		za[1]=2.0;
+		za[2]=3.0;
+		DataPoint ad= new DataPoint(za);
+		double[] zb =new double[3];
+		zb[0]=1.0;
+		zb[1]=1.0;
+		zb[2]=1.0;
+		DataPoint bd= new DataPoint(zb);
+		double[] zd= new double[3];
+		zd[0]=9.0;
+		zd[1]=4.0;
+		zd[2]=7.0;
+		DataPoint dd= new DataPoint(zd);
+		ArrayList<DataPoint> zc =new ArrayList<DataPoint>();
+		zc.add(ad);
+		zc.add(bd);
+		zc.add(dd);
+		LLE d= new LLE(null,0);
+		double[][] e= d.calcDistanceMatrix(zc);
+	//when
+		Integer[] f= d.findNeighbours(1, 1, e);
+	//then
+		assertEquals(1,f.length);
+		assertEquals(0,f[0].intValue());
 	}
 
 	@Test
