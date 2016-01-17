@@ -26,13 +26,13 @@ public class LLETest {
 	@Test
 	public void testCalcSmallestEigenValues() {
 		//given
-		double[][] a= {{3./2,-7./6,1./2,-1.,-2.3},{-7./6,14./9,-3./4,1./2,1./9},{1./2,-3./4,13./8,-1./4,-1./3},{-1.,1./2,-1./4,3./2,-1./6},{-2./3,1./9,-1./3,-1./6,14./9}};
+		double[][] a= {{3./2,-7./6,1./2,-1.,-2./3},{-7./6,14./9,-3./4,1./2,1./9},{1./2,-3./4,13./8,-1./4,-1./3},{-1.,1./2,-1./4,3./2,-1./6},{-2./3,1./9,-1./3,-1./6,14./9}};
 		LLE f= new LLE(null,0);
 		//when
 		Integer[] smallestEigenValues=f.calcSmallestEigenValues(a,2);
 		//then
-		assertEquals(1,smallestEigenValues[0],0.00000001);
-		assertEquals(4,smallestEigenValues[1],0.00000001);
+		assertEquals(0,smallestEigenValues[0],0.00000001);
+		assertEquals(1,smallestEigenValues[1],0.00000001);
 		assertEquals(2,smallestEigenValues[2],0.00000001);
 	}
 
