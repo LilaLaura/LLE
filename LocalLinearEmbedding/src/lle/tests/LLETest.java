@@ -337,13 +337,13 @@ public class LLETest {
 	//then
 		Integer expectedA = 0;
 		assertEquals(expectedA, c[0]);
-		Integer expectedB = 3;
+		Integer expectedB = 1;
 		assertEquals(expectedB,c[1]);
 		Integer expectedC = 2;
 		assertEquals(expectedC, c[2]);
-		Integer expectedD = 4;
+		Integer expectedD = 3;
 		assertEquals(expectedD, c[3]);
-		Integer expectedE = 1;
+		Integer expectedE = 4;
 		assertEquals(expectedE, c[4] );
 	}
 }
