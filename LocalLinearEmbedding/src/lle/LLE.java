@@ -57,7 +57,7 @@ public class LLE {
 		Integer[] smallestEigenValues= new Integer[d+1];
 		Matrix M= new Matrix(sparseMatrix);
 		EigenvalueDecomposition x= new EigenvalueDecomposition(M);
-		Integer[] EigenValues=this.BubbleSort(x.getRealEigenvalues());
+		Integer[] EigenValues=this.bubbleSortIndexByDistance(x.getRealEigenvalues());
 		for(int i=0; i<=d; i++){
 			smallestEigenValues[i]=EigenValues[i];
 		}
@@ -142,13 +142,13 @@ public class LLE {
 	 */
 	public Integer[] findNeighbours(int k, int i, double[][] distances){
 		Integer[] result = new Integer[k];
-		Integer[] sortedIndexList = this.BubbleSort(distances[i]);
+		Integer[] sortedIndexList = this.bubbleSortIndexByDistance(distances[i]);
 		for (int j = 1; j <= k; j++) {
 			result[j-1] = sortedIndexList[j];
 		}
-		return result;
+		return this.bubbleSort(result);
 	}
-		public Integer[] BubbleSort(double[] b){
+		public Integer[] bubbleSortIndexByDistance(double[] b){
 			double temp;
 			Integer temp2;
 			Integer[] index = new Integer[b.length];
@@ -164,6 +164,24 @@ public class LLE {
 						temp2=index[j];
 						index[j]=index[j+1];
 						index[j+1]=temp2;
+					}
+					
+				}
+			}
+			return index; 
+		}
+		public Integer[] bubbleSort(Integer[] result){
+			Integer temp;
+			Integer[] index = new Integer[result.length];
+			for(int p=0; p<result.length; p++){
+				index[p]=p;
+			}
+			for(int i=1; i<result.length; i++) {
+				for(int j=0; j<result.length-i; j++) {
+					if(result[j]>result[j+1]) {
+						temp=result[j];
+						result[j]=result[j+1];
+						result[j+1]=temp;
 					}
 					
 				}

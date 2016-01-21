@@ -255,7 +255,7 @@ public class LLETest {
 	}
 
 	@Test
-	public void testBubbleSort() {
+	public void testBubbleSortIndexByDistance() {
 		//given
 				LLE a= new LLE(null,0,0);
 				double[] b= new double[5];
@@ -265,7 +265,7 @@ public class LLETest {
 				b[3]=2.0;
 				b[4]=5.0;
 			//when
-				Integer[] c= a.BubbleSort(b);
+				Integer[] c= a.bubbleSortIndexByDistance(b);
 			//then
 				Integer expectedA = 0;
 				assertEquals(c[0], expectedA);
@@ -320,5 +320,30 @@ public class LLETest {
 		//then
 		double expectedA = 2.449489742783178;
 		assertEquals(expectedA,output , 0.00000001);
+	}
+	
+	@Test
+	public void testBubbleSort(){
+		//given
+		LLE a= new LLE(null,0,0);
+		Integer[] b= new Integer[5];
+		b[0]=1;
+		b[1]=6;
+		b[2]=3;
+		b[3]=2;
+		b[4]=5;
+	//when
+		Integer[] c= a.bubbleSort(b);
+	//then
+		Integer expectedA = 0;
+		assertEquals(expectedA, c[0]);
+		Integer expectedB = 3;
+		assertEquals(expectedB,c[1]);
+		Integer expectedC = 2;
+		assertEquals(expectedC, c[2]);
+		Integer expectedD = 4;
+		assertEquals(expectedD, c[3]);
+		Integer expectedE = 1;
+		assertEquals(expectedE, c[4] );
 	}
 }
