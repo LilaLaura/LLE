@@ -6,6 +6,9 @@ package lle;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import org.apache.commons.math3.linear.Array2DRowRealMatrix;
+import org.apache.commons.math3.linear.*;
+
 import Jama.Matrix;
 
 /**
@@ -97,9 +100,18 @@ public class ExtDataPoint extends DataPoint {
 	}
 	
 	public double[][] calcCovariance(double[][] subtractedNeighborMatrix){
+		double tol=0.0;
+		if(subtractedNeighborMatrix[0].length<subtractedNeighborMatrix.length){
+			tol=Math.E-3;
+		}
+		Matrix I= Matrix.identity(subtractedNeighborMatrix[0].length,subtractedNeighborMatrix[0].length);
+		Matrix R= I.times(tol);
 		Matrix A = new Matrix(subtractedNeighborMatrix);
 		Matrix transpose = A.transpose();
-		Matrix C= transpose.times(A);
+		Matrix C1= transpose.times(A);
+		double r=C1.trace();
+		Matrix Reg=R.times(r);
+		Matrix C=C1.plus(Reg);
 		return C.getArray();
 	}
 	
@@ -109,14 +121,15 @@ public class ExtDataPoint extends DataPoint {
 	
 	//Vector dimension kx1
 	public double[] solveLinearSystem(double[][] covarianceNeighborMatrix){
-		double[][] coloumnVector= new double[covarianceNeighborMatrix.length][1];
+		double[] coloumnVector= new double[covarianceNeighborMatrix.length];
 		for(int i=0; i<covarianceNeighborMatrix.length; i++){
-			coloumnVector[i][0]=1;
+			coloumnVector[i]=1;
 		}
-		Matrix C= new Matrix(covarianceNeighborMatrix);
-		Matrix ColVec= new Matrix(coloumnVector);
-		Matrix w = C.solve(ColVec);
-		return w.getColumnPackedCopy();
+		RealMatrix C = new Array2DRowRealMatrix(covarianceNeighborMatrix);
+		DecompositionSolver solver = new LUDecomposition(C).getSolver();
+		RealVector constants = new ArrayRealVector(coloumnVector);
+		RealVector w = solver.solve(constants);
+		return w.toArray();
 	}
 	
 	public void doSolvingLinearSystem(){
