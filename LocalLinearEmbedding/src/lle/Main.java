@@ -51,10 +51,10 @@ public class Main {
 //		V.print(5, 5);
 		Matrix distancematrix= new Matrix(myLLE.distances);
 		distancematrix.print(5, 2);
-//		Matrix neighbor= new Matrix(myLLE.dataWithNeighbors.get(0).neighborMatrix);
-//		neighbor.print(4, 2);
-//		Matrix subtract= new Matrix(myLLE.dataWithNeighbors.get(0).subtractedNeighborMatrix);
-//		subtract.print(4, 2);
+		Matrix neighbor= new Matrix(myLLE.dataWithNeighbors.get(0).neighborMatrix);
+		neighbor.print(4, 2);
+		Matrix subtract= new Matrix(myLLE.dataWithNeighbors.get(0).subtractedNeighborMatrix);
+		subtract.print(4, 2);
 //		Matrix covariance= new Matrix(myLLE.dataWithNeighbors.get(0).covarianceNeighborMatrix);
 //		covariance.print(2, 5);
 //		Matrix linVec= new Matrix(myLLE.dataWithNeighbors.get(2).linearVector,1);

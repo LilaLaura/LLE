@@ -101,19 +101,19 @@ public class ExtDataPoint extends DataPoint {
 	}
 	
 	public double[][] calcCovariance(double[][] subtractedNeighborMatrix){
-//		double tol=0.0;
-//		if(subtractedNeighborMatrix[0].length<subtractedNeighborMatrix.length){
-//			tol=Math.E-3;
-//		}
-//		Matrix I= Matrix.identity(subtractedNeighborMatrix[0].length,subtractedNeighborMatrix[0].length);
-//		Matrix R= I.times(tol);
+		double tol=0.0;
+		if(subtractedNeighborMatrix[0].length<subtractedNeighborMatrix.length){
+			tol=Math.E-3;
+		}
+		Matrix I= Matrix.identity(subtractedNeighborMatrix[0].length,subtractedNeighborMatrix[0].length);
+		Matrix R= I.times(tol);
 		Matrix A = new Matrix(subtractedNeighborMatrix);
 		Matrix transpose = A.transpose();
 		Matrix C1= transpose.times(A);
-//		double r=C1.trace();
-//		Matrix Reg=R.times(r);
-//		Matrix C=C1.plus(Reg);
-		return C1.getArray();
+		double p=C1.trace();
+		Matrix r=R.times(p);
+		Matrix C=C1.plus(r);
+		return C.getArray();
 	}
 	
 	public void doCovariance(){

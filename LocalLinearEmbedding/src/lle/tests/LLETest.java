@@ -210,10 +210,10 @@ public class LLETest {
 		//then
 			assertEquals(4,f.size());
 			assertTrue(f.get(0).isNeighbor(bd));
-			assertTrue(f.get(0).isNeighbor(dd));
+			assertTrue(f.get(0).isNeighbor(ad));
 			assertFalse(f.get(0).isNeighbor(ed));
+			assertTrue(f.get(1).isNeighbor(bd));
 			assertTrue(f.get(1).isNeighbor(ad));
-			assertTrue(f.get(1).isNeighbor(dd));
 			assertFalse(f.get(1).isNeighbor(ed));
 			assertTrue(f.get(2).isNeighbor(ad));
 			assertTrue(f.get(2).isNeighbor(bd));
