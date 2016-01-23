@@ -29,7 +29,8 @@ public class ExtDataPoint extends DataPoint {
 	public double[]linearVector;
 	public double[][]weightMatrix;
 	public double[][]sparseMatrix;
-
+	
+	
 	public ExtDataPoint(double[] dimensions,Integer k) {
 		super(dimensions);
 		neighborMatrix= new double[dimensions.length][k];
@@ -109,9 +110,9 @@ public class ExtDataPoint extends DataPoint {
 		Matrix A = new Matrix(subtractedNeighborMatrix);
 		Matrix transpose = A.transpose();
 		Matrix C1= transpose.times(A);
-		double r=C1.trace();
-		Matrix Reg=R.times(r);
-		Matrix C=C1.plus(Reg);
+		double p=C1.trace();
+		Matrix r=R.times(p);
+		Matrix C=C1.plus(r);
 		return C.getArray();
 	}
 	
@@ -130,7 +131,12 @@ public class ExtDataPoint extends DataPoint {
 		RealVector constants = new ArrayRealVector(coloumnVector);
 		RealVector w = solver.solve(constants);
 		return w.toArray();
+//		Matrix colVec= new Matrix(coloumnVector,1);
+//		Matrix C=new Matrix(covarianceNeighborMatrix);
+//		Matrix w= C.solve(colVec);
+//		return w.getColumnPackedCopy();
 	}
+	
 	
 	public void doSolvingLinearSystem(){
 		this.linearVector=this.solveLinearSystem(this.covarianceNeighborMatrix);
