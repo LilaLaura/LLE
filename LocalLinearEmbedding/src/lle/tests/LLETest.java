@@ -178,49 +178,53 @@ public class LLETest {
 	@Test
 	public void testFindAllNeighbors() {
 		//given
-			double[] za =new double[3];
-			za[0]=1.0;
-			za[1]=2.0;
-			za[2]=3.0;
-			DataPoint ad= new DataPoint(za);
-			double[] zb =new double[3];
-			zb[0]=1.0;
-			zb[1]=1.0;
-			zb[2]=1.0;
-			DataPoint bd= new DataPoint(zb);
-			double[] zd =new double[3];
-			zd[0]=0.0;
-			zd[1]=1.0;
-			zd[2]=1.0;
-			DataPoint dd= new DataPoint(zd);
-			double[] ze =new double[3];
-			ze[0]=5.0;
-			ze[1]=7.0;
-			ze[2]=9.0;
-			DataPoint ed= new DataPoint(ze);
-			ArrayList<DataPoint> zc =new ArrayList<DataPoint>();
-			zc.add(ad);
-			zc.add(bd);
-			zc.add(dd);
-			zc.add(ed);
+			double[] dataset1 =new double[3];
+			dataset1[0]=1.0;
+			dataset1[1]=2.0;
+			dataset1[2]=3.0;
+			DataPoint dataPoint1= new DataPoint(dataset1);
+			double[] dataset2 =new double[3];
+			dataset2[0]=1.0;
+			dataset2[1]=1.0;
+			dataset2[2]=1.0;
+			DataPoint dataPoint2= new DataPoint(dataset2);
+			double[] dataset3 =new double[3];
+			dataset3[0]=0.0;
+			dataset3[1]=1.0;
+			dataset3[2]=1.0;
+			DataPoint dataPoint3= new DataPoint(dataset3);
+			double[] dataset4 =new double[3];
+			dataset4[0]=5.0;
+			dataset4[1]=7.0;
+			dataset4[2]=9.0;
+			DataPoint dataPoint4= new DataPoint(dataset4);
+			ArrayList<DataPoint> listOfDataPoints =new ArrayList<DataPoint>();
+			listOfDataPoints.add(dataPoint1);
+			listOfDataPoints.add(dataPoint2);
+			listOfDataPoints.add(dataPoint3);
+			listOfDataPoints.add(dataPoint4);
 			LLE d= new LLE(null,0,0);
-			double[][] e= d.calcDistanceMatrix(zc);
+			double[][] distanceMatrix= d.calcDistanceMatrix(listOfDataPoints);
 		//when
-			ArrayList<ExtDataPoint> f= d.findAllNeighbors(2, zc, e);
+			ArrayList<ExtDataPoint> f= d.findAllNeighbors(2, listOfDataPoints, distanceMatrix);
 		//then
 			assertEquals(4,f.size());
-			assertTrue(f.get(0).isNeighbor(bd));
-			assertTrue(f.get(0).isNeighbor(ad));
-			assertFalse(f.get(0).isNeighbor(ed));
-			assertTrue(f.get(1).isNeighbor(bd));
-			assertTrue(f.get(1).isNeighbor(ad));
-			assertFalse(f.get(1).isNeighbor(ed));
-			assertTrue(f.get(2).isNeighbor(ad));
-			assertTrue(f.get(2).isNeighbor(bd));
-			assertFalse(f.get(2).isNeighbor(ed));
-			assertTrue(f.get(3).isNeighbor(ad));
-			assertTrue(f.get(3).isNeighbor(bd));
-			assertFalse(f.get(3).isNeighbor(dd));
+			assertTrue(f.get(0).isNeighbor(dataPoint2));
+			assertTrue(f.get(0).isNeighbor(dataPoint3));
+			assertFalse(f.get(0).isNeighbor(dataPoint1));
+			assertFalse(f.get(0).isNeighbor(dataPoint4));
+			assertTrue(f.get(1).isNeighbor(dataPoint1));
+			assertTrue(f.get(1).isNeighbor(dataPoint3));
+			assertFalse(f.get(1).isNeighbor(dataPoint2));
+			assertFalse(f.get(1).isNeighbor(dataPoint4));
+			assertTrue(f.get(2).isNeighbor(dataPoint1));
+			assertTrue(f.get(2).isNeighbor(dataPoint2));
+			assertFalse(f.get(2).isNeighbor(dataPoint3));
+			assertFalse(f.get(2).isNeighbor(dataPoint4));
+			assertTrue(f.get(3).isNeighbor(dataPoint1));
+			assertTrue(f.get(3).isNeighbor(dataPoint2));
+			assertFalse(f.get(3).isNeighbor(dataPoint3));
+			assertFalse(f.get(3).isNeighbor(dataPoint4));
 	}
 
 	@Test
@@ -335,15 +339,15 @@ public class LLETest {
 	//when
 		Integer[] c= a.bubbleSort(b);
 	//then
-		Integer expectedA = 0;
+		Integer expectedA = 1;
 		assertEquals(expectedA, c[0]);
-		Integer expectedB = 1;
+		Integer expectedB = 2;
 		assertEquals(expectedB,c[1]);
-		Integer expectedC = 2;
+		Integer expectedC = 3;
 		assertEquals(expectedC, c[2]);
-		Integer expectedD = 3;
+		Integer expectedD = 5;
 		assertEquals(expectedD, c[3]);
-		Integer expectedE = 4;
+		Integer expectedE = 6;
 		assertEquals(expectedE, c[4] );
 	}
 }

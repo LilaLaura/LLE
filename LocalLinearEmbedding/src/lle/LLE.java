@@ -173,9 +173,6 @@ public class LLE {
 		public Integer[] bubbleSort(Integer[] result){
 			Integer temp;
 			Integer[] index = new Integer[result.length];
-			for(int p=0; p<result.length; p++){
-				index[p]=p;
-			}
 			for(int i=1; i<result.length; i++) {
 				for(int j=0; j<result.length-i; j++) {
 					if(result[j]>result[j+1]) {
@@ -186,7 +183,7 @@ public class LLE {
 					
 				}
 			}
-			return index; 
+			return result; 
 		}
 	/*
 	 * calculates the distance matrix for a given set of DataPoint
