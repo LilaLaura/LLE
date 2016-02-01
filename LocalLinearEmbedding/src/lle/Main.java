@@ -20,7 +20,7 @@ public class Main {
 		ArrayList<DataPoint> myDataPoints = parser.parseFile2DataPoints();
 
 		//Initialize LLE class which will do the computing
-		LLE myLLE = new LLE(myDataPoints, 2,2);
+		LLE myLLE = new LLE(myDataPoints,2,2);
 		Matrix embeddedMatrix= new Matrix(myLLE.embeddingMatrix);
 		ExtDataPoint myExtDataPoint= new ExtDataPoint(myDataPoints.get(0).getAllDimensions(), 2);
 		
@@ -42,22 +42,15 @@ public class Main {
 			e.printStackTrace();
 		}    
 		//TODO tell myLLE to do some fancy calculating
-//		double[][] sparse={{74./49,25./49,-9./7,-8./7},{25./49,74./49,-6./7,-5./7},{-9./7,-6./7,78./49,29./49},{-8./7,-5./7,29./49,78./49}};
-//		Matrix M= new Matrix(sparse);
-//		EigenvalueDecomposition x= new EigenvalueDecomposition(M);
-//		Matrix D=x.getD();
-//		Matrix V=x.getV();
-//		D.print(5, 5);
-//		V.print(5, 5);
-		Matrix distancematrix= new Matrix(myLLE.distances);
-		distancematrix.print(5, 2);
-		Matrix neighbor= new Matrix(myLLE.dataWithNeighbors.get(0).neighborMatrix);
-		neighbor.print(4, 2);
-		Matrix subtract= new Matrix(myLLE.dataWithNeighbors.get(0).subtractedNeighborMatrix);
-		subtract.print(4, 2);
-//		Matrix covariance= new Matrix(myLLE.dataWithNeighbors.get(0).covarianceNeighborMatrix);
+//		Matrix distancematrix= new Matrix(myLLE.distances);
+//		distancematrix.print(5, 2);
+//		Matrix neighbor= new Matrix(myLLE.dataWithNeighbors.get(3).neighborMatrix);
+//		neighbor.print(4, 2);
+//		Matrix subtract= new Matrix(myLLE.dataWithNeighbors.get(3).subtractedNeighborMatrix);
+//		subtract.print(4, 2);
+//		Matrix covariance= new Matrix(myLLE.dataWithNeighbors.get(3).covarianceNeighborMatrix);
 //		covariance.print(2, 5);
-//		Matrix linVec= new Matrix(myLLE.dataWithNeighbors.get(2).linearVector,1);
+//		Matrix linVec= new Matrix(myLLE.dataWithNeighbors.get(3).linearVector,1);
 //		linVec.print(5,5);
 //		Matrix weightmatrix= new Matrix(myLLE.weightMatrix);
 //		weightmatrix.print(5, 5);
